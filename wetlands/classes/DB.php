@@ -28,12 +28,15 @@ class DB {
 
 		$this->_error = false;
 
-		$this->_query = $sql;
+		$this->_query = $this->_pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		
-		$this->_results = $this->_pdo->query($sql);
-		$this->_count = $this->_results->rowCount();
-	
-		return $this->_results;
+		if($this->_query->execute()) {
+			$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+			$this->_count = $this->_query->rowCount();
+		} else {
+			$this->_error = true;
+		}
+		return $this;
 	}
 	
 	public function query($sql, $params = array()) {
@@ -59,9 +62,18 @@ class DB {
 	
 		return $this;
 	}
+	
 
 	public function get($table, $where) {
 		return $this->action('SELECT *', $table, $where);
+	}
+
+	public function getAll($table) {
+		$sql = "SELECT * FROM {$table}";
+		
+		if(!$this->run($sql)->error()) {
+			return $this;
+		}
 	}
 
 	public function delete($table, $where) {
