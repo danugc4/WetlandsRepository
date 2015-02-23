@@ -32,8 +32,12 @@ if(Cookie::exists(Config::get('remember/cookie_name'))) {
 	$hash = Cookie::get(Config::get('remember/cookie_name'));
 	$hashCheck = DB::getInstance()->get('user_session', array('hash', '=', $hash));
 
-	if($hashCheck->count()) {
-		$user = new User($hashCheck->first()->user_id);
-		$user->login();
+	if(!$hashCheck) {
+		Cookie::delete(Config::get('remember/cookie_name'));
+	} else {
+		if($hashCheck->count()) {
+			$user = new User($hashCheck->first()->user_id);
+			$user->login();
+		}
 	}
 }

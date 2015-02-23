@@ -2,11 +2,14 @@
 require_once 'core/init.php';
 $isLoggedIn = false;
 
-$user = new user();
-if($user->isLoggedIn()) {
-	$isLoggedIn = true;
+if(Session::exists(Config::get('session/session_name'))) {
+
+	$user = new User();
+	if($user->isLoggedIn()) {
+		$isLoggedIn = true;
+	}
 }
-?>
+?>user
 
 <header>
 		<div class = "navbar navbar-inverse navbar-static-top">
@@ -34,5 +37,6 @@ if($user->isLoggedIn()) {
 				</div>				 
 			</div>
 		</div>
+		
 </header>
 <?php if($isLoggedIn) { ?>	<div class="container"><h3>Hello <a href="#"><?php echo escape($user->data()->username); ?></a></h3></div><?php }?>

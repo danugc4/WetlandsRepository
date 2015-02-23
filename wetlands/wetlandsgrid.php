@@ -1,5 +1,5 @@
 <?php
-require_once 'jq-config.php';
+require_once 'core/jq-config.php';
 // include the jqGrid Class
 require_once "jqgrid/php/jqGrid.php";
 // include the PDO driver class
@@ -11,7 +11,7 @@ $conn = new PDO(DB_DSN,DB_USER,DB_PASSWORD);
 $grid = new jqGridRender($conn);
 // Write the SQL Query
 // We suppose that mytable exists in your database
-$grid->SelectCommand = 'SELECT name,county FROM Wetland';
+$grid->SelectCommand = 'SELECT name, county FROM Wetland';
 
 // set the ouput format to json
 $grid->dataType = 'json';
