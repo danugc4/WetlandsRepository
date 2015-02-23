@@ -16,6 +16,6 @@ class Cookie {
 	}
 
 	public static function delete($name) {
-		self::put($name, '', time() - 1);
+		self::put($name, '', time() - 1); // reset cookie with empty string and negative value
 	}
 }

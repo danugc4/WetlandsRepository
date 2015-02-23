@@ -1,7 +1,17 @@
+<?php 
+require_once 'core/init.php';
+$isLoggedIn = false;
+
+$user = new user();
+if($user->isLoggedIn()) {
+	$isLoggedIn = true;
+}
+?>
+
 <header>
 		<div class = "navbar navbar-inverse navbar-static-top">
 			<div class = "container">
-				<h1 href = "#" = "navbar-brand"><br>Wetlands Database</h1>
+				<h1><br>Wetlands Database</h1>
 				<button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
 				<span class = "icon-bar"></span>
 				<span class = "icon-bar"></span>
@@ -15,10 +25,14 @@
 						<li><a href = "about.php">About</a></li>
 						<li><a href = "contact.php">Contact</a></li>
 						<li><a href = "profile.php">Profile</a></li>
+						<?php if(!$isLoggedIn) { ?>						
 						<li><a href = "login.php">Login</a></li>
-						<li><a href = "register.php">Register</a></li>
+						<?php } else {?>  						
+						<li><a href = "logout.php">Logout</a></li>
+						<?php } ?>  
 					</ul>
-				</div>
+				</div>				 
 			</div>
 		</div>
-	</header>
+</header>
+<?php if($isLoggedIn) { ?>	<div class="container"><h3>Hello <a href="#"><?php echo escape($user->data()->username); ?></a></h3></div><?php }?>

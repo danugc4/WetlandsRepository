@@ -1,19 +1,33 @@
 <?php 
-require 'core/init.php';
+require_once 'core/init.php';
 include 'includes/overall/header.php'; 
 
 if(Input::exists()) {
 	if(Token::check(Input::get('token'))) {
-		$user = new User();
+		
+		$validate = new Validate();
+		$validation = $validate->check($_POST, array(
+				'username' => array('required' => true),
+				'password' => array('required' => true)			
+		));
+		
+		if($validation->passed()) {
+			$user = new User();		
 
-		$remember = (Input::get('remember') === 'on') ? true : false;
-		$login = $user->login(Input::get('username'), Input::get('password'), $remember);
-
-		if($login) {
-			Redirect::to('index.php');
+			$remember = (Input::get('remember') === 'on') ? true : false;
+			$login = $user->login(Input::get('username'), Input::get('password'), $remember);
+	
+			if($login) {
+				Redirect::to('index.php'); //TODO may want to put a session flash in here
+			} else {
+				echo '<p>Sorry, that username and password wasn\'t recognised.</p>';
+			}
 		} else {
-			echo '<p>Sorry, that username and password wasn\'t recognised.</p>';
+			foreach($validation->errors() as $error) {
+				echo $error, '<br>';
+			}
 		}
+			
 	}
 }
 

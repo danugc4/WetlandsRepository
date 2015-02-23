@@ -1,5 +1,5 @@
 <?php include 'includes/overall/header.php'; 
-require 'core/init.php';
+require_once 'core/init.php';
 
 if(Input::exists()) {
 
@@ -13,7 +13,8 @@ if(Input::exists()) {
 			'email' => array(
 				'required' => true,
 				'min' => 2,
-				'max' => 50),
+				'max' => 50,
+				'unique' => 'users'),
 			'company' => array(
 				'required' => false,
 				'min' => 2,
@@ -57,7 +58,7 @@ if(Input::exists()) {
 				Redirect::to('login.php');
 
 			} catch(Exception $e) {
-				die($e->getMessage());
+				die($e->getMessage()); //TODO redirect to error page instead of die
 			}
 
 		} else {
@@ -85,19 +86,19 @@ if(Input::exists()) {
                     <form action="" method="post">
                         <fieldset>
 							<div class="form-group">
-								<input type="name" class="form-control" id="name" name="name" placeholder="Enter name" value="<?php echo escape(Input::get('name')); ?>">
+								<input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="<?php echo escape(Input::get('name')); ?>">
 							</div>
 							<div class="form-group">
 								<input type="email" class="form-control" name="email" id="email" placeholder="Enter email" value="<?php echo escape(Input::get('email')); ?>">
 							</div>
 							<div class="form-group">
-								<input type="company" class="form-control" id="company" name="company" placeholder="Enter company name" value="<?php echo escape(Input::get('company')); ?>">
+								<input type="text" class="form-control" id="company" name="company" placeholder="Enter company name" value="<?php echo escape(Input::get('company')); ?>">
 							</div>
 							<div class="form-group">
-								<input type="job_title" class="form-control" name="job_title" id="job_title" placeholder="Enter job title" value="<?php echo escape(Input::get('job_title')); ?>">
+								<input type="text" class="form-control" name="job_title" id="job_title" placeholder="Enter job title" value="<?php echo escape(Input::get('job_title')); ?>">
 							</div>
 							<div class="form-group">
-								<input type="username" class="form-control" id="username" name="username" placeholder="Choose a username" autocomplete="off" value="<?php echo escape(Input::get('username')); ?>">
+								<input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" autocomplete="off" value="<?php echo escape(Input::get('username')); ?>">
 							</div>
 							<div class="form-group">
 								<input type="password" class="form-control" name="password" id="password" placeholder="Choose a password">

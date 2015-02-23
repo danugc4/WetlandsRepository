@@ -10,9 +10,10 @@ class Validate {
 
 	public function check($source, $items = array()) {
 		foreach($items as $item => $rules) {
+			$value = trim($source[$item]);
+			$item = escape($item);
+			
 			foreach($rules as $rule => $rule_value) {
-				
-				$value = trim($source[$item]);
 
 				if($rule === 'required' && $rule_value === true && empty($value)) {
 					$this->addError("{$item} is required.");
@@ -35,11 +36,12 @@ class Validate {
 							}
 						break;
 						case 'unique':
-							$check = $this->_db->get('users', array($item, '=', $value));
+							$check = $this->_db->get($rule_value, array($item, '=', $value));
 							if($check->count()) {
 								$this->addError("{$item} is already taken.");
 							}
 						break;
+						// TODO regex matching patterns (i.e names must be alphanumeric)
 					}
 
 				}

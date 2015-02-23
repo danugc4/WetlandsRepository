@@ -19,11 +19,10 @@ $GLOBALS['config'] = array(
 	)
 );
 
-// Autoload classes
-function autoload($class) {
+// Autoload classes using anonymous function
+spl_autoload_register(function ($class) {
 	require_once 'classes/' . $class . '.php';
-}
-spl_autoload_register('autoload');
+});
 
 // Include functions
 require_once 'functions/sanitize.php';
@@ -31,11 +30,10 @@ require_once 'functions/sanitize.php';
 // Check for users that have requested to be remembered
 if(Cookie::exists(Config::get('remember/cookie_name'))) {
 	$hash = Cookie::get(Config::get('remember/cookie_name'));
-	$hashCheck = DB::getInstance()->get('users_session', array('hash', '=', $hash));
+	$hashCheck = DB::getInstance()->get('user_session', array('hash', '=', $hash));
 
 	if($hashCheck->count()) {
 		$user = new User($hashCheck->first()->user_id);
 		$user->login();
 	}
-
 }

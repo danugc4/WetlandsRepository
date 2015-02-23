@@ -2,11 +2,11 @@
 class DB {
 	public static $instance = null;
 
-	private 	$_pdo = null,
-				$_query = null,
-				$_error = false,
-				$_results = null,
-				$_count = 0;
+	private 	$_pdo = null,      // pdo object
+				$_query = null,    // last query executed
+				$_error = false,   
+				$_results = null,  // store result set 
+				$_count = 0;       // count of results
 
 	private function __construct() {
 		try {
@@ -79,7 +79,7 @@ class DB {
 
 	public function insert($table, $fields = array()) {
 		$keys 	= array_keys($fields);
-		$values = null;
+		$values = '';
 		$x 		= 1;
 
 		foreach($fields as $value) {
@@ -100,7 +100,7 @@ class DB {
 	}
 
 	public function update($table, $id, $fields = array()) {
-		$set 	= null;
+		$set 	= '';
 		$x		= 1;
 
 		foreach($fields as $name => $value) {
@@ -111,7 +111,7 @@ class DB {
 			$x++;
 		}
 
-		$sql = "UPDATE users SET {$set} WHERE id = {$id}";
+		$sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
 
 		if(!$this->query($sql, $fields)->error()) {
 			return true;
