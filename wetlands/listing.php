@@ -4,10 +4,7 @@ $db = DB::getInstance();
  
 $pretreatments= $db->getAll('PretreatmentType', false)->results();
 
-if(isset($_GET['pretreatment'])) {
-	$selectedPretreatment = $_GET['pretreatment'];
-	$wetlands = $db->get('Wetland', array('pretreatmentType', '=', $selectedPretreatment), false)->results();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,19 +14,22 @@ if(isset($_GET['pretreatment'])) {
 	</head>
 	<body>
 	
-		<form action="listing.php" method="get">		
+			
 		
-			<select name="pretreatment">
+			<select name="pretreatment"  id="pretreatment-select">
 				<option value="">Choose a pretreatment type</option>
 					 	<?php foreach($pretreatments as $pretreatment): ?> 
-	 	     			 <option value="<?php echo $pretreatment['id']; ?>" 
-	 	     			 <?php echo (isset($selectedPretreatment) && $selectedPretreatment == $pretreatment['id']) ? ' selected' : '' ?>>
+	 	     			 <option value="<?php echo $pretreatment['id']; ?>" >
 	 	     			 <?php echo $pretreatment['name']; ?></option> 
        					 <?php endforeach; ?> 
 			</select>
-			<input type="submit" value="Show details">
-		</form>     
+			
+		    <div id="wetlands-list"></div>
 	      	
+	 	 <?php include 'includes/overall/footer.php'; ?>
+	 	 <script src="js/global.js"></script>	 	 
+	 	 </body>
+	 	 </html>
+
 	 	
-	 	</body>
-	 	</html>
+	 	

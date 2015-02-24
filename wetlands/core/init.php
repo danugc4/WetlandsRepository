@@ -19,13 +19,15 @@ $GLOBALS['config'] = array(
 	)
 );
 
+//define('PATH', dirname(__DIR__));
+
 // Autoload classes using anonymous function
 spl_autoload_register(function ($class) {
-	require_once 'classes/' . $class . '.php';
+	require_once dirname(__DIR__).'/classes/' . $class . '.php';
 });
 
 // Include functions
-require_once 'functions/sanitize.php';
+require_once dirname(__DIR__).'/functions/sanitize.php';
 
 // Check for users that have requested to be remembered
 if(Cookie::exists(Config::get('remember/cookie_name'))) {
