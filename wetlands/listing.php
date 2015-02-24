@@ -1,8 +1,13 @@
 <?php
 require 'core/init.php';
 $db = DB::getInstance();
+ 
+$pretreatments= $db->getAll('PretreatmentType', false)->results();
 
-$pretreatmentsdb = $db->getAll('PretreatmentType');
+if(isset($_GET['pretreatment'])) {
+	$selectedPretreatment = $_GET['pretreatment'];
+	$wetlands = $db->get('Wetland', array('pretreatmentType', '=', $selectedPretreatment), false)->results();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,13 +21,15 @@ $pretreatmentsdb = $db->getAll('PretreatmentType');
 		
 			<select name="pretreatment">
 				<option value="">Choose a pretreatment type</option>
-					 	<?php foreach($pretreatmentsdb->results() as $pretreatment): ?> 
-	 	     			 <option value="<?php echo $pretreatment->id; ?>"><?php echo $pretreatment->name; ?></option> 
+					 	<?php foreach($pretreatments as $pretreatment): ?> 
+	 	     			 <option value="<?php echo $pretreatment['id']; ?>" 
+	 	     			 <?php echo (isset($selectedPretreatment) && $selectedPretreatment == $pretreatment['id']) ? ' selected' : '' ?>>
+	 	     			 <?php echo $pretreatment['name']; ?></option> 
        					 <?php endforeach; ?> 
 			</select>
-		
-		</form>
-	      
+			<input type="submit" value="Show details">
+		</form>     
+	      	
 	 	
 	 	</body>
 	 	</html>

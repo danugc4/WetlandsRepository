@@ -6,7 +6,8 @@ class DB {
 				$_query = null,    // last query executed
 				$_error = false,   
 				$_results = null,  // store result set 
-				$_count = 0;       // count of results
+				$_count = 0,       // count of results
+				$_obj = true;      // return object or associative array
 
 	private function __construct() {
 		try {
@@ -31,7 +32,11 @@ class DB {
 		$this->_query = $this->_pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		
 		if($this->_query->execute()) {
-			$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+			if($this->_obj) {
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+			} else {
+				$this->_results = $this->_query->fetchAll(PDO::FETCH_ASSOC);
+			}
 			$this->_count = $this->_query->rowCount();
 		} else {
 			$this->_error = true;
@@ -53,7 +58,11 @@ class DB {
 			}
 	
 			if($this->_query->execute()) {
-				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+				if($this->_obj) {
+				  $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
+				} else {
+				  $this->_results = $this->_query->fetchAll(PDO::FETCH_ASSOC);
+				}
 				$this->_count = $this->_query->rowCount();
 			} else {
 				$this->_error = true;
@@ -64,11 +73,13 @@ class DB {
 	}
 	
 
-	public function get($table, $where) {
+	public function get($table, $where, $obj = true) {
+		$this->_obj = $obj;
 		return $this->action('SELECT *', $table, $where);
 	}
 
-	public function getAll($table) {
+	public function getAll($table, $obj = true) {
+		$this->_obj = $obj;
 		$sql = "SELECT * FROM {$table}";
 		
 		if(!$this->run($sql)->error()) {
