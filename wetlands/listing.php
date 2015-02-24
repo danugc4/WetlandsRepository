@@ -11,10 +11,9 @@ $pretreatments= $db->getAll('PretreatmentType', false)->results();
 	<head>
 		<meta charset="UTF-8">
 		<title>Dropdowns</title>
+		
 	</head>
-	<body>
-	
-			
+	<body>		
 		
 			<select name="pretreatment"  id="pretreatment-select">
 				<option value="">Choose a pretreatment type</option>
@@ -25,11 +24,11 @@ $pretreatments= $db->getAll('PretreatmentType', false)->results();
 			</select>
 			
 		    <div id="wetlands-list"></div>
-	      	
-	 	 <?php include 'includes/overall/footer.php'; ?>
-	 	 <script src="js/global.js"></script>	 	 
-	 	 </body>
-	 	 </html>
+		    
+		    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	 	    <script src="js/global.js" type="text/javascript"></script>
+ 	 </body>
+</html>
 
 	 	
 	 	

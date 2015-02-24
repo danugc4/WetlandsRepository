@@ -5,6 +5,6 @@ $db = DB::getInstance();
 if(isset($_GET['pretreatment'])) {
 	
     $selectedPretreatment = $_GET['pretreatment'];
-	$wetlands = $db->get('Wetland', array('pretreatmentType', '=', $selectedPretreatment), false)->results();
-
+	$wetlands = $db->get('Wetland', array('pretreatmentType', '=', $selectedPretreatment), false)->first();
+	print_r($wetlands);
 }
