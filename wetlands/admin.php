@@ -29,8 +29,7 @@ if($user->hasPermission('admin')) {
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</div>	
 </div>
 
 

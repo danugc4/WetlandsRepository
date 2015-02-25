@@ -8,7 +8,7 @@ include 'includes/overall/header.php';
             <div class="box">
                 
                     <hr>
-                    <h2 class="intro-text text-center"><strong>Contact Us<strong></h2><br>
+                    <h2 class="intro-text text-center"><strong>Contact Us</strong></h2><br>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, vitae, distinctio, possimus repudiandae cupiditate ipsum excepturi dicta neque eaque voluptates tempora veniam esse earum sapiente optio deleniti consequuntur eos voluptatem.</p>
                     <form role="form-success">
                         <div class="row">
