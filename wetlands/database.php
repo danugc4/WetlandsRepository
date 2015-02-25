@@ -6,6 +6,9 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="jqgrid/themes/ui.jqgrid.css" />
 
 	<script src="jqgrid/js/jquery.min.js" type="text/javascript"></script>	
+	<script src="jqgrid/js/trirand/i18n/grid.locale-en.js" type="text/javascript"></script>
+	<script src="jqgrid/js/trirand/jquery.jqGrid.min.js" type="text/javascript"></script>
+	
 	
 	</head>
 	<?php 
@@ -16,8 +19,7 @@
 	
 	$db = DB::getInstance();
 	
-	$waterSources= $db->getAll('SiteSourceType', false)->results();
-	
+    $waterSources= $db->getAll('SiteSourceType', false)->results();
 	$pretreatments= $db->getAll('PretreatmentType', false)->results();
 	
 	?>
@@ -64,7 +66,7 @@
 			</div>
 		</div>
 	</div>
-			<br>
+	<br>
 			
 	<div class = "container">
 	    <div class = "row">			
@@ -77,12 +79,10 @@
 	</div>	  
 			
 			
-	        	
+	        <?php include "wetlandsgrid.php";?>			
 		    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	 	    <script src="js/global.js" type="text/javascript"></script>
-	 	    
-	 	    <?php include "wetlandsgrid.php";?>		
-			<?php //include 'includes/overall/footer.php'; ?>	
+			<?php include 'includes/overall/footer.php'; ?>	
 
 	</body>
 	
