@@ -11,7 +11,7 @@ $conn = new PDO(DB_DSN,DB_USER,DB_PASSWORD);
 $grid = new jqGridRender($conn);
 // Write the SQL Query
 // We suppose that mytable exists in your database
-$grid->SelectCommand = 'SELECT name, county FROM Wetland';
+$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS SiteSource, Pretreatment, Wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
 
 // set the ouput format to json
 $grid->dataType = 'json';
@@ -28,8 +28,10 @@ $grid->setGridOptions(array(
     ));
 
 // Change some property of the field(s)
-$grid->setColProperty("name", array("label"=>"name", "width"=>240));
 $grid->setColProperty("county", array("label"=>"county", "width"=>120));
+$grid->setColProperty("SiteSource", array("label"=>"SiteSource", "width"=>120));
+$grid->setColProperty("Pretreatment", array("label"=>"Pretreatment", "width"=>320));
+$grid->setColProperty("Wetland", array("label"=>"Wetland", "width"=>240));
 
 // Run the script
 $grid->renderGrid('#grid','#pager',true, null, null, true,true);
