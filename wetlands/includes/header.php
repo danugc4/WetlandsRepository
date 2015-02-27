@@ -9,7 +9,7 @@ if(Session::exists(Config::get('session/session_name'))) {
 		$isLoggedIn = true;
 	}
 }
-?>user
+?>
 
 <header>
 		<div class = "navbar navbar-inverse navbar-static-top">
