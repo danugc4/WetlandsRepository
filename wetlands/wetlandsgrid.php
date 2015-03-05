@@ -9,9 +9,30 @@ $conn = new PDO(DB_DSN,DB_USER,DB_PASSWORD);
 
 // Create the jqGrid instance
 $grid = new jqGridRender($conn);
+
+// Write the SQL Query
+$search = jqGridUtils::GetParam('_search','false');
+
+if($search == 'true')
+{
+
+	// get the date
+	$pretreatment = jqGridUtils::GetParam('pretreatment','1');
+	//$to = jqGridUtils::GetParam('to','12/31/1999');
+	// Reformat it to DB appropriate search
+	//$from = jqGridUtils::parseDate('d/m/Y', $from, 'Y-m-d');
+	//$to = jqGridUtils::parseDate('d/m/Y', $to, 'Y-m-d');
+
+	$_GET['_search'] = 'false';
+	$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS SiteSource, Pretreatment, Wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType, PretreatmentType.id FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id WHERE Data.id = "'.$pretreatment.'"';
+	//$grid->debug = true;
+} else {
+	// use the standard SelectCommand
+	$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS SiteSource, Pretreatment, Wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
+}
 // Write the SQL Query
 // We suppose that mytable exists in your database
-$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS SiteSource, Pretreatment, Wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
+
 
 // set the ouput format to json
 $grid->dataType = 'json';
