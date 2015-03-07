@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<!--  ?php 
+	  session_start();
+	?-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" media="screen" href="jqgrid/themes/jquery-ui.theme.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="jqgrid/themes/ui.jqgrid.css" />
@@ -14,17 +17,16 @@
 	</script>
 	<script src="jqgrid/js/trirand/jquery.jqGrid.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
+		var select='';
 		$(document).ready(function(){
-			//$("select").css("border", "3px solid red");	
+			//Select all dropdown items	
 			$("#filter select").on('change', function() {
-				//var pretreatment = $("#pretreatment-select").val();
-				var foo = $(this).val();
-				$("select").css("border", "3px solid red");	
-
-				//alert($("#pretreatment-select").html());
-				//alert(foo);	
-				$("#grid").jqGrid('setGridParam', {postData:{"pretreatment":foo}, search: true} );
-				$("#grid").trigger("reloadGrid"); 		
+				var county = $('#county-select').val() || '%' ;
+				var siteSource = $('#siteSource-select').val() || '%' ;
+				var pretreatment = $('#pretreatment-select').val() || '%' ;
+				
+				$("#grid").jqGrid('setGridParam', {postData:{"county": county, "siteSource": siteSource, "pretreatment":pretreatment}, search: true} );
+			    $("#grid").trigger("reloadGrid");  		 
 				
 			});
 		});	
@@ -39,8 +41,9 @@
 	
 	$db = DB::getInstance();
 	
-    $waterSources= $db->getAll('SiteSourceType', false)->results();
+    $siteSources= $db->getAll('SiteSourceType', false)->results();
 	$pretreatments= $db->getAll('PretreatmentType', false)->results();
+	
 	
 	?>
 	
@@ -50,7 +53,7 @@
 	    <div class = "row">			
 		    <div class = "col-sm-9">
 			<select name="county"  id="county-select">
-				<option value="">Choose a county</option>
+				<option value="%">All counties</option>
 				      <?php foreach($counties as $county): ?>
 				      <option> <?php echo $county; ?></option> 
 				       <?php endforeach; ?>  
@@ -62,11 +65,11 @@
    	<div class = "container" id="filter" >
 	    <div class = "row">			
 		    <div class = "col-sm-9"> 
-			<select name="waterSource"  id="waterSource-select">
-				<option value="">Choose a source of waste water</option>
-					 	<?php foreach($waterSources as $waterSource): ?> 
-	 	     			 <option value="<?php echo $waterSource['id']; ?>" >
-	 	     			 <?php echo $waterSource['name']; ?></option> 
+			<select name="siteSource"  id="siteSource-select">
+				<option value="%">All source of waste water</option>
+					 	<?php foreach($siteSources as $siteSource): ?> 
+	 	     			 <option value="<?php echo $siteSource['id']; ?>" >
+	 	     			 <?php echo $siteSource['name']; ?></option> 
        					 <?php endforeach; ?> 
 			</select>   
 			</div>
@@ -77,7 +80,7 @@
 	    <div class = "row">			
 		    <div class = "col-sm-9"> 
 			<select name="pretreatment"  id="pretreatment-select">
-				<option value="">Choose a pretreatment type</option>
+				<option value="%">All pretreatment types</option>
 					 	<?php foreach($pretreatments as $pretreatment): ?> 
 	 	     			 <option value="<?php echo $pretreatment['id']; ?>" >
 	 	     			 <?php echo $pretreatment['name']; ?></option> 
@@ -97,8 +100,7 @@
 			
 			</div>
 		</div>
-	</div>	  
-			
+	</div>	
 			
 	        <?php include "wetlandsgrid.php";?>			
 		    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
