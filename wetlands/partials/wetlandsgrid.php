@@ -1,9 +1,9 @@
 <?php
-require_once 'core/jq-config.php';
+require_once  __DIR__.'/../core/jq-config.php';
 // include the jqGrid Class
-require_once "jqgrid/php/jqGrid.php";
+require_once __DIR__.'/../jqgrid/php/jqGrid.php';
 // include the PDO driver class
-require_once "jqgrid/php/jqGridPdo.php";
+require_once __DIR__.'/../jqgrid/php/jqGridPdo.php';
 // Connection to the server
 $conn = new PDO(DB_DSN,DB_USER,DB_PASSWORD);
 
@@ -19,7 +19,7 @@ $grid->dataType = 'json';
 // Let the grid create the model
 $grid->setColModel();
 // Set the url from where we obtain the data
-$grid->setUrl('wetlandsgrid.php');
+$grid->setUrl('partials/wetlandsgrid.php');
 // Set grid caption using the option caption
 $grid->setGridOptions(array(
     "caption"=>"Wetlands",
