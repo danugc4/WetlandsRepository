@@ -37,15 +37,19 @@ $grid->setColProperty("wetland", array("label"=>"Wetland", "width"=>240));
 
 
 $custom = <<<CUSTOM
+
 jQuery("#getselected").click(function(){
     var selr = jQuery('#grid').jqGrid('getGridParam','selrow');
+	var selr_data = jQuery('#grid').jqGrid('getRowData',selr);		
+	
     if(selr) {
-		  window.location.href='sample.php?wetlandID='+selr; 
+		var params=$.param(selr_data);
+		window.location.href='sample.php?'+params;
 	}
     return false;
 });
 CUSTOM;
-
+		
 $grid->setJSCode($custom);
 
 // Run the script

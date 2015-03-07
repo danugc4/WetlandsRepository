@@ -23,13 +23,38 @@
 	include 'includes/overall/header.php';
 	if( $_GET["wetlandID"] )
 	{
-		$wetlandID = $_GET['wetlandID'];
-		echo "Welcome ". $wetlandID;
+		$wetlandID = $_GET['wetlandID'];		
 	}
+	if( $_GET["county"] )
+	{
+		$county = $_GET['county'];		
+	}	
+	if( $_GET["siteSource"] )
+	{
+		$siteSource = $_GET['siteSource'];		
+	}	
+	if( $_GET["pretreatment"] )
+	{
+		$pretreatment = $_GET['pretreatment'];		
+	}
+	if( $_GET["wetland"] )
+	{
+		$wetland = $_GET['wetland'];
+	}	
 	?>
 	
 	<body>
-	<p>Hello Gary </p>
+	  
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-9">
+				<h4>Wetland : <?php echo $wetland ?></h4>
+				<h4>County : <?php echo $county ?></h4>
+				<h4>SiteSource : <?php echo $siteSource ?></h4>
+				<h4>Pretreatment : <?php echo $pretreatment ?></h4>
+			</div>
+		</div>
+	</div> 
 	 
 	<div class="container">
 		<div class="row">
