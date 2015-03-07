@@ -10,8 +10,8 @@ $conn = new PDO(DB_DSN,DB_USER,DB_PASSWORD);
 // Create the jqGrid instance
 $grid = new jqGridRender($conn);
 
-
-$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS siteSource, pretreatment, wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
+// Write the SQL Query
+$grid->SelectCommand = 'SELECT wetlandID, county, SiteSourceType.name AS siteSource, pretreatment, wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.id AS wetlandID, Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
 
 
 // set the ouput format to json
@@ -24,15 +24,28 @@ $grid->setUrl('wetlandsgrid.php');
 $grid->setGridOptions(array(
     "caption"=>"Wetlands",
     "rowNum"=>10,
-    "sortname"=>"county",
+    "sortname"=>"wetlandID",
     "rowList"=>array(10,20,50)
     ));
 
 // Change some property of the field(s)
+$grid->setColProperty("wetlandID", array("label"=>"ID", "width"=>60));
 $grid->setColProperty("county", array("label"=>"County", "width"=>120));
 $grid->setColProperty("siteSource", array("label"=>"SiteSource", "width"=>120));
 $grid->setColProperty("pretreatment", array("label"=>"Pretreatment", "width"=>320));
 $grid->setColProperty("wetland", array("label"=>"Wetland", "width"=>240));
+
+
+$custom = <<<CUSTOM
+jQuery("#getselected").click(function(){
+    var selr = jQuery('#grid').jqGrid('getGridParam','selrow');
+    if(selr) alert(selr);
+    else alert("No selected row");
+    return false;
+});
+CUSTOM;
+
+$grid->setJSCode($custom);
 
 // Run the script
 $grid->renderGrid('#grid','#pager',true, null, null, true,true);
