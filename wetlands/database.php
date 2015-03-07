@@ -7,8 +7,27 @@
 
 	<script src="jqgrid/js/jquery.min.js" type="text/javascript"></script>	
 	<script src="jqgrid/js/trirand/i18n/grid.locale-en.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$.jgrid.no_legacy_api = true;
+		$.jgrid.useJSON = true;
+		$.jgrid.defaults.width = "700";
+	</script>
 	<script src="jqgrid/js/trirand/jquery.jqGrid.min.js" type="text/javascript"></script>
-	
+	<script type="text/javascript">
+		var select='';
+		$(document).ready(function(){
+			//Select all dropdown items	
+			$("#filter select").on('change', function() {
+				var county = $('#county-select').val() || '%' ;
+				var siteSource = $('#siteSource-select').val() || '%' ;
+				var pretreatment = $('#pretreatment-select').val() || '%' ;
+				
+				$("#grid").jqGrid('setGridParam', {postData:{"county": county, "siteSource": siteSource, "pretreatment":pretreatment}, search: true} );
+			    $("#grid").trigger("reloadGrid");  		 
+				
+			});
+		});	
+	</script>
 	
 	</head>
 	<?php 
@@ -19,18 +38,19 @@
 	
 	$db = DB::getInstance();
 	
-    $waterSources= $db->getAll('SiteSourceType', false)->results();
+    $siteSources= $db->getAll('SiteSourceType', false)->results();
 	$pretreatments= $db->getAll('PretreatmentType', false)->results();
+	
 	
 	?>
 	
 	<body>
 	<p></p>
-	 <div class = "container">
+	 <div class = "container" id="filter" >
 	    <div class = "row">			
 		    <div class = "col-sm-9">
 			<select name="county"  id="county-select">
-				<option value="">Choose a county</option>
+				<option value="%">All counties</option>
 				      <?php foreach($counties as $county): ?>
 				      <option> <?php echo $county; ?></option> 
 				       <?php endforeach; ?>  
@@ -39,25 +59,25 @@
 		</div>
 	</div> 
    <br>
-   	<div class = "container">
+   	<div class = "container" id="filter" >
 	    <div class = "row">			
 		    <div class = "col-sm-9"> 
-			<select name="waterSource"  id="waterSource-select">
-				<option value="">Choose a source of waste water</option>
-					 	<?php foreach($waterSources as $waterSource): ?> 
-	 	     			 <option value="<?php echo $waterSource['id']; ?>" >
-	 	     			 <?php echo $waterSource['name']; ?></option> 
+			<select name="siteSource"  id="siteSource-select">
+				<option value="%">All source of waste water</option>
+					 	<?php foreach($siteSources as $siteSource): ?> 
+	 	     			 <option value="<?php echo $siteSource['id']; ?>" >
+	 	     			 <?php echo $siteSource['name']; ?></option> 
        					 <?php endforeach; ?> 
 			</select>   
 			</div>
 		</div>
 	</div>
 	 <br>
-	<div class = "container">
+	<div class = "container" id="filter" >
 	    <div class = "row">			
 		    <div class = "col-sm-9"> 
 			<select name="pretreatment"  id="pretreatment-select">
-				<option value="">Choose a pretreatment type</option>
+				<option value="%">All pretreatment types</option>
 					 	<?php foreach($pretreatments as $pretreatment): ?> 
 	 	     			 <option value="<?php echo $pretreatment['id']; ?>" >
 	 	     			 <?php echo $pretreatment['name']; ?></option> 
@@ -67,6 +87,7 @@
 		</div>
 	</div>
 	<br>
+	<div id="example"></div>
 			
 	<div class = "container">
 	    <div class = "row">			
@@ -76,12 +97,11 @@
 			
 			</div>
 		</div>
-	</div>	  
-			
+	</div>	
 			
 	        <?php include "wetlandsgrid.php";?>			
 		    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	 	    <script src="js/global.js" type="text/javascript"></script>
+	 	    
 			<?php include 'includes/overall/footer.php'; ?>	
 
 	</body>

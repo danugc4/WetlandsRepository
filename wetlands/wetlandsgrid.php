@@ -9,9 +9,43 @@ $conn = new PDO(DB_DSN,DB_USER,DB_PASSWORD);
 
 // Create the jqGrid instance
 $grid = new jqGridRender($conn);
+
+// Write the SQL Query
+$search = jqGridUtils::GetParam('_search','false');
+
+if($search == 'true')
+{
+
+	// get the date
+	$county = jqGridUtils::GetParam('county','%');
+	$siteSource = jqGridUtils::GetParam('siteSource','%');
+	$pretreatment = jqGridUtils::GetParam('pretreatment','%');
+	//$to = jqGridUtils::GetParam('to','12/31/1999');
+	// Reformat it to DB appropriate search	
+	
+	if($county == '%')
+	 {$countyFilter = "county LIKE '%'";}
+	 else {$countyFilter = "county ='".$county."'";};
+	 
+	 if($siteSource == '%')
+	 {$siteSourceFilter = "Data.siteSourceType LIKE '%'";}
+	 else {$siteSourceFilter = "Data.siteSourceType ='".$siteSource."'";};
+	 
+	 if($pretreatment == '%')
+	 {$pretreatmentFilter = "pretreatmentID LIKE '%'";}
+	 else {$pretreatmentFilter = "pretreatmentID = '".$pretreatment."'";};
+	 	
+
+	$_GET['_search'] = 'false';
+	$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS siteSource, pretreatment, wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county AS county, Wetland.name AS wetland, PretreatmentType.name AS pretreatment, Wetland.siteSourceType, PretreatmentType.id AS pretreatmentID FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id WHERE '.$countyFilter.' AND '.$siteSourceFilter.' AND '.$pretreatmentFilter;
+	//$grid->debug = true;
+} else {
+	// use the standard SelectCommand
+	$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS SiteSource, Pretreatment, Wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
+}
 // Write the SQL Query
 // We suppose that mytable exists in your database
-$grid->SelectCommand = 'SELECT county, SiteSourceType.name AS SiteSource, Pretreatment, Wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
+
 
 // set the ouput format to json
 $grid->dataType = 'json';
@@ -28,9 +62,9 @@ $grid->setGridOptions(array(
     ));
 
 // Change some property of the field(s)
-$grid->setColProperty("county", array("label"=>"county", "width"=>120));
-$grid->setColProperty("SiteSource", array("label"=>"SiteSource", "width"=>120));
-$grid->setColProperty("Pretreatment", array("label"=>"Pretreatment", "width"=>320));
+$grid->setColProperty("county", array("label"=>"County", "width"=>120));
+$grid->setColProperty("siteSource", array("label"=>"SiteSource", "width"=>120));
+$grid->setColProperty("pretreatment", array("label"=>"Pretreatment", "width"=>320));
 $grid->setColProperty("Wetland", array("label"=>"Wetland", "width"=>240));
 
 // Run the script
