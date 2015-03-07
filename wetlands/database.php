@@ -20,10 +20,40 @@
 			$("#filter select").on('change', function() {
 				var county = $('#county-select').val() || '%' ;
 				var siteSource = $('#siteSource-select').val() || '%' ;
-				var pretreatment = $('#pretreatment-select').val() || '%' ;
+				var pretreatment = $('#pretreatment-select').val() || '%' ;				
+
+				if ((county == '%') && (siteSource == '%') && (pretreatment == '%')) {
+					$("#grid").search = false;
+					$("#grid").setGridParam({          
+		                 postData: {
+			                 filters:'' },
+			                 search: false
+			        });
+			        
+				} else {
+	                var f = {groupOp:"AND",rules:[]};
+	
+	                if (county != '%') {
+	                	f.rules.push({field:"county",op:"cn",data:county});
+	                }
+	
+	                if (siteSource != '%') {
+	                	f.rules.push({field:"siteSource",op:"cn",data:siteSource});
+	                }
+	                if (pretreatment != '%') {
+	                	f.rules.push({field:"pretreatment",op:"cn",data:pretreatment});
+	                }
+					
+	                $("#grid").search = true;
+	                
+	                $("#grid").setGridParam({          
+		                 postData: {
+			                 filters:JSON.stringify(f)  },
+			                 search: true
+			        });
+				}
 				
-				$("#grid").jqGrid('setGridParam', {postData:{"county": county, "siteSource": siteSource, "pretreatment":pretreatment}, search: true} );
-			    $("#grid").trigger("reloadGrid");  		 
+                $("#grid").trigger("reloadGrid",[{page:1,current:true}]); 		 
 				
 			});
 		});	
@@ -65,8 +95,7 @@
 			<select name="siteSource"  id="siteSource-select">
 				<option value="%">All source of waste water</option>
 					 	<?php foreach($siteSources as $siteSource): ?> 
-	 	     			 <option value="<?php echo $siteSource['id']; ?>" >
-	 	     			 <?php echo $siteSource['name']; ?></option> 
+	 	     			 <option ><?php echo $siteSource['name']; ?></option> 
        					 <?php endforeach; ?> 
 			</select>   
 			</div>
@@ -79,8 +108,7 @@
 			<select name="pretreatment"  id="pretreatment-select">
 				<option value="%">All pretreatment types</option>
 					 	<?php foreach($pretreatments as $pretreatment): ?> 
-	 	     			 <option value="<?php echo $pretreatment['id']; ?>" >
-	 	     			 <?php echo $pretreatment['name']; ?></option> 
+	 	     			 <option><?php echo $pretreatment['name']; ?></option> 
        					 <?php endforeach; ?> 
 			</select>   
 			</div>
