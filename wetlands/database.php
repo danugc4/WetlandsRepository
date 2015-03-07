@@ -130,8 +130,7 @@
 		<button id="getselected">Get Selected Rows</button>
 	</div>
 			
-	        <?php include "partials/wetlandsgrid.php";?>			
-		    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	        <?php include "partials/wetlandsgrid.php";?>		   
 	 	    
 			<?php include 'includes/overall/footer.php'; ?>	
 

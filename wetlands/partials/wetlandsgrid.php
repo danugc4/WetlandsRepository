@@ -39,8 +39,9 @@ $grid->setColProperty("wetland", array("label"=>"Wetland", "width"=>240));
 $custom = <<<CUSTOM
 jQuery("#getselected").click(function(){
     var selr = jQuery('#grid').jqGrid('getGridParam','selrow');
-    if(selr) alert(selr);
-    else alert("No selected row");
+    if(selr) {
+		  window.location.href='sample.php?wetlandID='+selr; 
+	}
     return false;
 });
 CUSTOM;
