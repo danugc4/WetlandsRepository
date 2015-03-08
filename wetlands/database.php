@@ -126,12 +126,13 @@
 			</div>
 		</div>
 	</div>	
-	<div class = "containr">
+	<div class = "container">
 		<button id="getselected">Get Selected Rows</button>
-	</div>
+	
 			
 	        <?php include "partials/wetlandsgrid.php";?>		   
-	 	    
+	  </div>	
+	        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>	 	    
 			<?php include 'includes/overall/footer.php'; ?>	
 
 	</body>

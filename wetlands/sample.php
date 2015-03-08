@@ -20,12 +20,9 @@
 </head>
 	<?php
 	require 'core/init.php';
-	include 'includes/overall/header.php';
-	if( $_GET["wetlandID"] )
-	{
-		$wetlandID = $_GET['wetlandID'];		
-	}
-	if( $_GET["county"] )
+	include 'includes/overall/header.php';	
+
+ 	if( $_GET["county"] )
 	{
 		$county = $_GET['county'];		
 	}	
@@ -41,14 +38,18 @@
 	{
 		$wetland = $_GET['wetland'];
 	}	
+	if( $_GET["wetlandID"] )
+	{
+		$wetlandID = $_GET['wetlandID'];
+	} 
 	?>
 	
 	<body>
-	  
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-9">
-				<h4>Wetland : <?php echo $wetland ?></h4>
+				<h4 id="wetland" data-id="<?php echo $wetlandID ?>">Wetland : <?php echo $wetland ?></h4>
 				<h4>County : <?php echo $county ?></h4>
 				<h4>SiteSource : <?php echo $siteSource ?></h4>
 				<h4>Pretreatment : <?php echo $pretreatment ?></h4>
@@ -65,8 +66,17 @@
 			</div>
 		</div>
 	</div>
-		    <?php include "partials/samplesgrid.php";?>		 	    
-			<?php include 'includes/overall/footer.php'; ?>	
+	
+	<div class = "container">
+	
+			
+	        <?php 	       
+	        include_once "partials/samplesgrid.php";
+	        ?>		   
+	  </div>	
+	   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>		 	    
+	
+<?php include 'includes/overall/footer.php'; ?>	
 				
 	</body>
 
