@@ -17,7 +17,18 @@
 <script src="jqgrid/js/trirand/jquery.jqGrid.min.js"type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
+	
     $("#data_tabs li:eq(0) a").tab('show');
+    $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
+
+	$("#search").click(function(){
+		var from = $("#from").val(),
+		to = $("#to").val();
+		if( from && to) {
+			$("#grid").jqGrid('setGridParam', {postData:{"from":from,"to":to}, search: true} );
+			$("#grid").trigger("reloadGrid");
+		}
+	});
 });
 </script>
 </head>
@@ -59,8 +70,15 @@ $(document).ready(function(){
 		</div>
 	</div>
 	<div class="tab-content">
-		   <div id="samples_section" class="tab-pane fade in active">				
-		     <p><?php  include_once "includes/partials/samplesgrid.php";  ?></p>	   
+		   <div id="samples_section" class="tab-pane fade in active">
+		   	  <div>
+				  From: <input id="from" class="datepicker" size="10"></input>
+				  To: <input id="to" class="datepicker" size="10"></input>
+				  <input id="search" type="button" value="Search"></input>
+				  <br/>
+				  <br/>
+			  </div>				
+		     <div><?php  include_once "includes/partials/samplesgrid.php";  ?></div>	   
 		  </div>
 		  <div id="wetland_section" class="tab-pane fade">
 		 	 <p>Images, image descriptions</p>
