@@ -15,7 +15,7 @@ class User {
 		// Check if a session exists and set user if so.
 		if(Session::exists($this->_sessionName) && !$user) {
 			$user = Session::get($this->_sessionName);
-	
+
 			if($this->find($user)) {
 				$this->_isLoggedIn = true;
 			} else {
@@ -73,10 +73,10 @@ class User {
 
 					if($remember) {
 						$hash = Hash::unique();
-						$hashCheck = $this->_db->get('users_session', array('user_id', '=', $this->data()->id));
-
+						$hashCheck = $this->_db->get('user_session', array('user_id', '=', $this->data()->id));
+						
 						if(!$hashCheck->count()) {
-							$this->_db->insert('users_session', array(
+							$this->_db->insert('user_session', array(
 								'user_id' => $this->data()->id,
 								'hash' => $hash
 							));
@@ -91,7 +91,7 @@ class User {
 				}
 			}
 		}
-
+		
 		return false;
 	}
 
@@ -119,7 +119,7 @@ class User {
 	}
 
 	public function logout() {
-		$this->_db->delete('users_session', array('user_id', '=', $this->data()->id));
+		$this->_db->delete('user_session', array('user_id', '=', $this->data()->id));
 
 		Cookie::delete($this->_cookieName);
 		Session::delete($this->_sessionName);
