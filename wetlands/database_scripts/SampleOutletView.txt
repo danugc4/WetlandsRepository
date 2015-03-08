@@ -1,0 +1,32 @@
+CREATE VIEW SampleOutletView
+AS
+select  outlet.wetlandID as wetlandID,
+	outlet.sampleDate as sampleDate,
+	outlet.dailyFlowRate as dailyFlowRate,
+	CASE outlet.qCOD WHEN 0 THEN CONCAT('<', FORMAT(outlet.COD, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.COD, 2)) ELSE CONCAT('', FORMAT(outlet.COD, 2))
+	END as COD_outlet,  
+	CASE outlet.qBod WHEN 0 THEN CONCAT('<', FORMAT(outlet.BOD, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.BOD, 2)) ELSE CONCAT('', FORMAT(outlet.BOD, 2))
+	END as BOD_outlet,  
+	CASE outlet.qSuspSolids WHEN 0 THEN CONCAT('<', FORMAT(outlet.suspSolids, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.suspSolids, 2)) ELSE CONCAT('', FORMAT(outlet.suspSolids, 2))
+	END as suspSolids_outlet,  
+	CASE outlet.qPH WHEN 0 THEN CONCAT('<', FORMAT(outlet.pH, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.pH, 2)) ELSE CONCAT('', FORMAT(outlet.pH, 2))
+	END as pH_outlet, 
+	CASE outlet.qDissolvedOxy WHEN 0 THEN CONCAT('<', FORMAT(outlet.dissolvedOxy, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.dissolvedOxy, 2)) ELSE CONCAT('', FORMAT(outlet.dissolvedOxy, 2))
+	END as dissolvedOxy_outlet, 
+	CASE outlet.qTemp WHEN 0 THEN CONCAT('<', FORMAT(outlet.temp, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.temp, 2)) ELSE CONCAT('', FORMAT(outlet.temp, 2))
+	END as temp_outlet, 
+	CASE outlet.qNitrogren WHEN 0 THEN CONCAT('<', FORMAT(outlet.nitrogren, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.nitrogren, 2)) ELSE CONCAT('', FORMAT(outlet.nitrogren, 2))
+	END as nitrogen_outlet, 
+	CASE outlet.qNH4N WHEN 0 THEN CONCAT('<', FORMAT(outlet.NH4N, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.NH4N, 2)) ELSE CONCAT('', FORMAT(outlet.NH4N, 2))
+	END as NH4N_outlet, 
+	CASE outlet.qNO3N WHEN 0 THEN CONCAT('<', FORMAT(outlet.NO3N, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.NO3N, 2)) ELSE CONCAT('', FORMAT(outlet.NO3N, 2))
+	END as NO3N_outlet, 
+	CASE outlet.qTON WHEN 0 THEN CONCAT('<', FORMAT(outlet.TON, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.TON, 2)) ELSE CONCAT('', FORMAT(outlet.TON, 2))
+	END as TON_outlet,
+	CASE outlet.qPhosphorous WHEN 0 THEN CONCAT('<', FORMAT(outlet.phosphorous, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.phosphorous, 2)) ELSE CONCAT('', FORMAT(outlet.phosphorous, 2))
+	END as phosphorous_outlet,
+	CASE outlet.qPO4P WHEN 0 THEN CONCAT('<', FORMAT(outlet.PO4P, 2)) WHEN 1 THEN CONCAT('>', FORMAT(outlet.PO4P, 2)) ELSE CONCAT('', FORMAT(outlet.PO4P, 2))
+	END as PO4P_outlet
+from Sample as outlet
+	where outlet.samplePoint = 'O';
+

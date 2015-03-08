@@ -1,0 +1,67 @@
+CREATE VIEW SampleView
+AS
+select  inlet.wetlandID as wetlandID,
+	inlet.sampleDate as sampleDate,
+	inlet.dailyFlowRate as dailyFlowRate,
+	COD_inlet,  
+	BOD_inlet,  
+	suspSolids_inlet,  
+	pH_inlet, 
+	dissolvedOxy_inlet, 
+	temp_inlet, 
+	nitrogen_inlet, 
+	NH4N_inlet, 
+	NO3N_inlet, 
+	TON_inlet,
+	phosphorous_inlet,
+	PO4P_inlet,
+	COD_outlet,  
+	BOD_outlet,  
+	suspSolids_outlet,  
+	pH_outlet, 
+	dissolvedOxy_outlet, 
+	temp_outlet, 
+	nitrogen_outlet, 
+	NH4N_outlet, 
+	NO3N_outlet, 
+	TON_outlet,
+	phosphorous_outlet,
+	PO4P_outlet
+from SampleInletView as inlet
+	left outer join 
+     SampleOutletView as outlet
+	on inlet.wetlandID = outlet.wetlandID
+	and inlet.sampleDate = outlet.sampleDate	
+UNION
+select  outlet.wetlandID as wetlandID,
+	outlet.sampleDate as sampleDate,
+	outlet.dailyFlowRate as dailyFlowRate,
+	COD_inlet,  
+	BOD_inlet,  
+	suspSolids_inlet,  
+	pH_inlet, 
+	dissolvedOxy_inlet, 
+	temp_inlet, 
+	nitrogen_inlet, 
+	NH4N_inlet, 
+	NO3N_inlet, 
+	TON_inlet,
+	phosphorous_inlet,
+	PO4P_inlet,
+	COD_outlet,  
+	BOD_outlet,  
+	suspSolids_outlet,  
+	pH_outlet, 
+	dissolvedOxy_outlet, 
+	temp_outlet, 
+	nitrogen_outlet, 
+	NH4N_outlet, 
+	NO3N_outlet, 
+	TON_outlet,
+	phosphorous_outlet,
+	PO4P_outlet
+from SampleInletView as inlet
+	right outer join 
+     SampleOutletView as outlet
+	on inlet.wetlandID = outlet.wetlandID
+	and inlet.sampleDate = outlet.sampleDate;	
