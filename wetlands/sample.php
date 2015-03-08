@@ -22,10 +22,11 @@ $(document).ready(function(){
     $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
 
 	$("#search").click(function(){
+		var id = $( "#wetland" ).data( "id" );
 		var from = $("#from").val(),
 		to = $("#to").val();
 		if( from && to) {
-			$("#grid").jqGrid('setGridParam', {postData:{"from":from,"to":to}, search: true} );
+			$("#grid").jqGrid('setGridParam', {postData:{"wetlandID":id,"from":from,"to":to}, search: true} );
 			$("#grid").trigger("reloadGrid");
 		}
 	});
