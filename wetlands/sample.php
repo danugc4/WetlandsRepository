@@ -22,13 +22,37 @@ $(document).ready(function(){
     $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
 	
 	$("#search").click(function(){
-		var from = $("#from").val(),
-		to = $("#to").val();
+		var from = mysqlDate($("#from").val());
+		var to = mysqlDate($("#to").val());
+		
+		
 		if( from && to) {
-			$("#grid").jqGrid('setGridParam', {postData:{"from":from,"to":to}, search: true} );
-			$("#grid").trigger("reloadGrid");
+			 var f = {groupOp:"AND",rules:[]};			 
+			 f.rules.push({field:"sampleDate",op:"ge",data:from});
+			 f.rules.push({field:"sampleDate",op:"le",data:to});
+			 $("#grid").search = true;
+			 $("#grid").setGridParam({          
+                 postData: {
+	                 filters:JSON.stringify(f)  },
+	                 search: true
+	        });			
 		} 
+		else 
+		{
+			$("#grid").search = false;
+			$("#grid").setGridParam({          
+                 postData: {
+	                 filters:'' },
+	                 search: false
+	        });
+		}
+		$("#grid").trigger("reloadGrid",[{page:1,current:true}]); 
 	});
+
+	function mysqlDate(date) {
+		date = new Date(date);
+		return date.toISOString().split('T')[0];
+	}
 });
 </script>
 </head>
@@ -36,9 +60,8 @@ $(document).ready(function(){
 	require 'core/init.php';
 	include 'includes/overall/header.php';	
 	
-	$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET["wetlandID"] : '';
-	?>
-	
+	$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET["wetlandID"] : '';	
+	?>	
 	<body>
 	
 	<div class="container">
@@ -69,7 +92,7 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-	<div class="tab-content">
+	<div class="tab-content" >
 		   <div id="samples_section" class="tab-pane fade in active">
 		   	  <div>
 				  From: <input id="from" class="datepicker" size="10"></input>
@@ -92,10 +115,8 @@ $(document).ready(function(){
 		  <div id="observations_section" class="tab-pane fade">
 		  	<p>observations</p>
 		  </div>
-	</div>	   		 	    
-	
-		<?php include 'includes/footer_grid.php'; ?>	
-				
+	</div>	
+		<?php include 'includes/footer_grid.php'; ?>
 	</body>
 
 </html>

@@ -14,24 +14,6 @@ $grid = new jqGridRender($conn);
 // Write the SQL Query
 $grid->SelectCommand = 'SELECT wetlandID, sampleDate, dailyFlowRate, COD_inlet, COD_outlet, BOD_inlet, BOD_outlet FROM SampleView';
 
-// Write the SQL Query
-$search = jqGridUtils::GetParam('_search','false');
-$search = 'false';
-if($search == 'true')
-{	
-	// get the date
-	$from = jqGridUtils::GetParam('from','01/01/1995');
-	$to = jqGridUtils::GetParam('to','31/12/2020');
-	// Reformat it to DB appropriate search
-	$from = jqGridUtils::parseDate('d/m/Y', $from, 'Ymd');
-	$to = jqGridUtils::parseDate('d/m/Y', $to, 'Ymd');
-	
-	
-    $_GET['_search'] = 'false';
-    //$grid->SelectCommand = 'SELECT * FROM SampleView WHERE wetlandID = "'.$ID.'" AND sampleDate >= "'.$from.'" AND sampleDate <= "'.$to.'"'; 
-    $grid->SelectCommand = 'SELECT wetlandID, sampleDate, dailyFlowRate, COD_inlet, COD_outlet, BOD_inlet, BOD_outlet  FROM SampleView WHERE sampleDate >= "'.$from.'" AND sampleDate <= "'.$to.'"';
-    //$grid->debug = true;
-} 
 // set the ouput format to json
 $grid->dataType = 'json';
 // Let the grid create the model
@@ -39,13 +21,13 @@ $grid->setColModel();
 // Set the url from where we obtain the data
 $grid->setUrl('includes/partials/samplesgrid.php');
 
-$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET["wetlandID"] : '';
+
+if (isset( $_GET["wetlandID"] )) {
+$wetlandID = $_GET["wetlandID"];
 // initialsearch
 $sarr = <<< FFF
 {"groupOp":"AND","rules":[{"field":"wetlandID","op":"eq","data":"$wetlandID"}]}
 FFF;
-	
-	
 	
 // Set grid caption using the option caption
 $grid->setGridOptions(array(
@@ -58,7 +40,15 @@ $grid->setGridOptions(array(
 		// setr criteria
 		"postData"=>array( "filters"=> $sarr )
 ));
-
+} else {
+	// Set grid caption using the option caption
+	$grid->setGridOptions(array(
+			"caption"=>"Wetland Sample Data",
+			"rowNum"=>15,
+			"sortname"=>"wetlandID",
+			"rowList"=>array(10,20,50)				
+	));	
+}
 
 // Change some property of the field(s)
 $grid->setColProperty("wetlandID", array("label"=>"WetlandID", "width"=>70));
@@ -94,13 +84,6 @@ $grid->setColProperty("phosphorous_inlet", array("label"=>"P_inlet", "width"=>70
 $grid->setColProperty("phosphorous_outlet", array("label"=>"P_outlet", "width"=>70));
 $grid->setColProperty("PO4P_inlet", array("label"=>"PO4P_inlet", "width"=>70));
 $grid->setColProperty("PO4P_outlet", array("label"=>"PO4P_outlet", "width"=>70)); */
-
-// In order to enable the more complex search we should set multipleGroup option
-// Also we need show query roo
-$grid->setNavOptions('search', array(
-		"multipleGroup"=>true,
-		"showQuery"=>true
-));
 
 // Run the script
 $grid->renderGrid('#grid','#pager',true, null, null, true,true);
