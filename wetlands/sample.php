@@ -6,29 +6,28 @@
 	href="jqgrid/themes/jquery-ui.theme.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="jqgrid/themes/ui.jqgrid.css" />
-
 <script src="jqgrid/js/jquery.min.js" type="text/javascript"></script>
 <script src="jqgrid/js/trirand/i18n/grid.locale-en.js"	type="text/javascript"></script>
+
 <script type="text/javascript">
 		$.jgrid.no_legacy_api = true;
 		$.jgrid.useJSON = true;
 		$.jgrid.defaults.width = "700";
-	</script>
+</script>
 <script src="jqgrid/js/trirand/jquery.jqGrid.min.js"type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
 	
     $("#data_tabs li:eq(0) a").tab('show');
     $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
-
+	
 	$("#search").click(function(){
-		var id = $( "#wetland" ).data( "id" );
 		var from = $("#from").val(),
 		to = $("#to").val();
 		if( from && to) {
-			$("#grid").jqGrid('setGridParam', {postData:{"wetlandID":id,"from":from,"to":to}, search: true} );
+			$("#grid").jqGrid('setGridParam', {postData:{"from":from,"to":to}, search: true} );
 			$("#grid").trigger("reloadGrid");
-		}
+		} 
 	});
 });
 </script>
@@ -37,7 +36,7 @@ $(document).ready(function(){
 	require 'core/init.php';
 	include 'includes/overall/header.php';	
 	
-	$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET['wetlandID'] : ''; 	
+	$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET["wetlandID"] : '';
 	?>
 	
 	<body>
@@ -79,7 +78,9 @@ $(document).ready(function(){
 				  <br/>
 				  <br/>
 			  </div>				
-		     <div><?php  include_once "includes/partials/samplesgrid.php";  ?></div>	   
+		     <div><?php  
+		     $_GET['wetlandID']= $wetlandID;
+		     include_once "includes/partials/samplesgrid.php";  ?></div>	   
 		  </div>
 		  <div id="wetland_section" class="tab-pane fade">
 		 	 <p>Images, image descriptions</p>

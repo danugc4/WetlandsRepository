@@ -12,15 +12,13 @@ $conn->query("SET NAMES utf8");
 // Create the jqGrid instance
 $grid = new jqGridRender($conn);
 // Write the SQL Query
-$grid->SelectCommand = 'SELECT * FROM SampleView';
-
-$ID = jqGridUtils::GetParam('wetlandID', '1');
+$grid->SelectCommand = 'SELECT wetlandID, sampleDate, dailyFlowRate, COD_inlet, COD_outlet, BOD_inlet, BOD_outlet FROM SampleView';
 
 // Write the SQL Query
 $search = jqGridUtils::GetParam('_search','false');
+$search = 'false';
 if($search == 'true')
-{
-	
+{	
 	// get the date
 	$from = jqGridUtils::GetParam('from','01/01/1995');
 	$to = jqGridUtils::GetParam('to','31/12/2020');
@@ -30,7 +28,8 @@ if($search == 'true')
 	
 	
     $_GET['_search'] = 'false';
-    $grid->SelectCommand = 'SELECT * FROM SampleView WHERE wetlandID = '.$ID. ' AND sampleDate >= "'.$from.'" AND sampleDate <= "'.$to.'"'; 
+    //$grid->SelectCommand = 'SELECT * FROM SampleView WHERE wetlandID = "'.$ID.'" AND sampleDate >= "'.$from.'" AND sampleDate <= "'.$to.'"'; 
+    $grid->SelectCommand = 'SELECT wetlandID, sampleDate, dailyFlowRate, COD_inlet, COD_outlet, BOD_inlet, BOD_outlet  FROM SampleView WHERE sampleDate >= "'.$from.'" AND sampleDate <= "'.$to.'"';
     //$grid->debug = true;
 } 
 // set the ouput format to json
@@ -40,17 +39,14 @@ $grid->setColModel();
 // Set the url from where we obtain the data
 $grid->setUrl('includes/partials/samplesgrid.php');
 
+$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET["wetlandID"] : '';
 // initialsearch
 $sarr = <<< FFF
-{ "groupOp":"AND",
-	"rules":[
-	  {"field":"wetlandID","op":"cn","data":"$ID"}
-	 ]
-}
+{"groupOp":"AND","rules":[{"field":"wetlandID","op":"eq","data":"$wetlandID"}]}
 FFF;
-
-
-
+	
+	
+	
 // Set grid caption using the option caption
 $grid->setGridOptions(array(
 		"caption"=>"Wetland Sample Data",
@@ -63,8 +59,9 @@ $grid->setGridOptions(array(
 		"postData"=>array( "filters"=> $sarr )
 ));
 
+
 // Change some property of the field(s)
-$grid->setColProperty("wetlandID", array("label"=>"WetlandID", "width"=>60));
+$grid->setColProperty("wetlandID", array("label"=>"WetlandID", "width"=>70));
 // Change some property of the field(s)
 $grid->setColProperty("sampleDate", array(
 	"label"=>"Sample Date",  "width"=>120,
@@ -74,29 +71,29 @@ $grid->setColProperty("sampleDate", array(
 );
 $grid->setColProperty("dailyFlowRate", array("label"=>"Daily Flow Rate", "width"=>70));
 $grid->setColProperty("COD_inlet", array("label"=>"COD_inlet", "width"=>70));
-$grid->setColProperty("BOD_inlet", array("label"=>"BOD_inlet", "width"=>70));
-$grid->setColProperty("suspSolids_inlet", array("label"=>"SS_inlet", "width"=>70));
-$grid->setColProperty("pH_inlet", array("label"=>"pH_inlet", "width"=>70));
-$grid->setColProperty("dissolvedOxy_inlet", array("label"=>"Oxy_inlet", "width"=>70));
-$grid->setColProperty("temp_inlet", array("label"=>"Temp_inlet", "width"=>70));
-$grid->setColProperty("nitrogen_inlet", array("label"=>"N_inlet", "width"=>70));
-$grid->setColProperty("NH4N_inlet", array("label"=>"NH4N_inlet", "width"=>70));
-$grid->setColProperty("NO3N_inlet", array("label"=>"NO3N_inlet", "width"=>70));
-$grid->setColProperty("TON_inlet", array("label"=>"TON_inlet", "width"=>70));
-$grid->setColProperty("phosphorous_inlet", array("label"=>"P_inlet", "width"=>70));
-$grid->setColProperty("PO4P_inlet", array("label"=>"PO4P_inlet", "width"=>70));
 $grid->setColProperty("COD_outlet", array("label"=>"COD_outlet", "width"=>70));
+$grid->setColProperty("BOD_inlet", array("label"=>"BOD_inlet", "width"=>70));
 $grid->setColProperty("BOD_outlet", array("label"=>"BOD_outlet", "width"=>70));
+/*$grid->setColProperty("suspSolids_inlet", array("label"=>"SS_inlet", "width"=>70));
 $grid->setColProperty("suspSolids_outlet", array("label"=>"SS_outlet", "width"=>70));
+$grid->setColProperty("pH_inlet", array("label"=>"pH_inlet", "width"=>70));
 $grid->setColProperty("pH_outlet", array("label"=>"pH_outlet", "width"=>70));
+ $grid->setColProperty("dissolvedOxy_inlet", array("label"=>"Oxy_inlet", "width"=>70));
 $grid->setColProperty("dissolvedOxy_outlet", array("label"=>"Oxy_outlet", "width"=>70));
+$grid->setColProperty("temp_inlet", array("label"=>"Temp_inlet", "width"=>70));
 $grid->setColProperty("temp_outlet", array("label"=>"Temp_outlet", "width"=>70));
+$grid->setColProperty("nitrogen_inlet", array("label"=>"N_inlet", "width"=>70));
 $grid->setColProperty("nitrogen_outlet", array("label"=>"N_outlet", "width"=>70));
+$grid->setColProperty("NH4N_inlet", array("label"=>"NH4N_inlet", "width"=>70));
 $grid->setColProperty("NH4N_outlet", array("label"=>"NH4N_outlet", "width"=>70));
+$grid->setColProperty("NO3N_inlet", array("label"=>"NO3N_inlet", "width"=>70));
 $grid->setColProperty("NO3N_outlet", array("label"=>"NO3N_outlet", "width"=>70));
+$grid->setColProperty("TON_inlet", array("label"=>"TON_inlet", "width"=>70));
 $grid->setColProperty("TON_outlet", array("label"=>"TON_outlet", "width"=>70));
+$grid->setColProperty("phosphorous_inlet", array("label"=>"P_inlet", "width"=>70));
 $grid->setColProperty("phosphorous_outlet", array("label"=>"P_outlet", "width"=>70));
-$grid->setColProperty("PO4P_outlet", array("label"=>"PO4P_outlet", "width"=>70));
+$grid->setColProperty("PO4P_inlet", array("label"=>"PO4P_inlet", "width"=>70));
+$grid->setColProperty("PO4P_outlet", array("label"=>"PO4P_outlet", "width"=>70)); */
 
 // In order to enable the more complex search we should set multipleGroup option
 // Also we need show query roo
