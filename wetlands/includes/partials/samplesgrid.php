@@ -59,6 +59,7 @@ $grid->setColProperty("sampleDate", array(
 	"formatoptions"=>array("srcformat"=>"Y-m-d H:i:s","newformat"=>"d/m/Y")
 	)
 );
+
 $grid->setColProperty("dailyFlowRate", array("label"=>"Daily Flow Rate", "width"=>70));
 $grid->setColProperty("COD_inlet", array("label"=>"COD_inlet", "width"=>70));
 $grid->setColProperty("COD_outlet", array("label"=>"COD_outlet", "width"=>70));

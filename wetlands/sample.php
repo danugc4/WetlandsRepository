@@ -35,7 +35,8 @@ $(document).ready(function(){
                  postData: {
 	                 filters:JSON.stringify(f)  },
 	                 search: true
-	        });			
+	        });	
+		    alert(JSON.stringify(f));		
 		} 
 		else 
 		{
@@ -49,9 +50,16 @@ $(document).ready(function(){
 		$("#grid").trigger("reloadGrid",[{page:1,current:true}]); 
 	});
 
-	function mysqlDate(date) {
-		date = new Date(date);
-		return date.toISOString().split('T')[0];
+	function mysqlDate(date) {				
+	    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    	if (month.length < 2) month = '0' + month;
+   		 if (day.length < 2) day = '0' + day;
+
+   		 return [year, month, day].join('-');
 	}
 });
 </script>
@@ -60,7 +68,7 @@ $(document).ready(function(){
 	require 'core/init.php';
 	include 'includes/overall/header.php';	
 	
-	$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET["wetlandID"] : '';	
+	$wetlandID = (isset( $_GET["wetlandID"] )) ? $_GET["wetlandID"] : '';
 	?>	
 	<body>
 	
