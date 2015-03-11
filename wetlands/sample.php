@@ -22,44 +22,36 @@ $(document).ready(function(){
     $(".datepicker").datepicker({dateFormat:'dd/mm/yy'});
 	
 	$("#search").click(function(){
+		var id = $( "#wetland" ).data( "id" );
 		var from = mysqlDate($("#from").val());
 		var to = mysqlDate($("#to").val());
+				
+		
+		var f = {groupOp:"AND",rules:[]};
+		f.rules.push({field:"wetlandID",op:"eq",data:id});			 
+		if (from) { f.rules.push({field:"sampleDate",op:"ge",data:from}); }
+		if (to) { f.rules.push({field:"sampleDate",op:"le",data:to}); }
+		
+		$("#grid").search = true;
+		$("#grid").setGridParam({          
+              postData: {
+	             filters:JSON.stringify(f)  },
+	             search: true
+	    });		    		
 		
 		
-		if( from && to) {
-			 var f = {groupOp:"AND",rules:[]};			 
-			 f.rules.push({field:"sampleDate",op:"ge",data:from});
-			 f.rules.push({field:"sampleDate",op:"le",data:to});
-			 $("#grid").search = true;
-			 $("#grid").setGridParam({          
-                 postData: {
-	                 filters:JSON.stringify(f)  },
-	                 search: true
-	        });	
-		    alert(JSON.stringify(f));		
-		} 
-		else 
-		{
-			$("#grid").search = false;
-			$("#grid").setGridParam({          
-                 postData: {
-	                 filters:'' },
-	                 search: false
-	        });
-		}
 		$("#grid").trigger("reloadGrid",[{page:1,current:true}]); 
 	});
 
-	function mysqlDate(date) {				
-	    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    	if (month.length < 2) month = '0' + month;
-   		 if (day.length < 2) day = '0' + day;
-
-   		 return [year, month, day].join('-');
+	function mysqlDate(date) {
+		try {
+			var mySQLdate = $.datepicker.parseDate( 'dd/mm/yy', date ) || false;		
+		if (!mySQLdate) return false;	 
+		} catch (e) { return false; }
+		
+		var splitter = date.split("/");
+		console.log("splitter: " + splitter);
+		return splitter[2]+'-'+splitter[1]+'-'+splitter[0];	 
 	}
 });
 </script>

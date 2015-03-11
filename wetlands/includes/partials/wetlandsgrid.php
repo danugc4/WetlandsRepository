@@ -23,6 +23,7 @@ $grid->setUrl('includes/partials/wetlandsgrid.php');
 // Set grid caption using the option caption
 $grid->setGridOptions(array(
     "caption"=>"Wetlands",
+	"hoverrows"=>true,
     "rowNum"=>10,
     "sortname"=>"wetlandID",
     "rowList"=>array(10,20,50)
