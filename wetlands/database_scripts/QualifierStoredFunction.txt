@@ -1,0 +1,33 @@
+/* PART 1 CREATE FUNCTION in SQL EXECUTION 
+==============================================================================================
+DROP FUNCTION IF EXISTS Qualifier;
+
+
+DELIMITER $$
+CREATE FUNCTION Qualifier(s_data float, s_qualifier int) RETURNS s_value varchar(50) 
+BEGIN
+	DECLARE 's_value' varchar(50);
+          RETURN (s_value);
+
+END$$
+====================================================================================================
+/*      Found out it was a bug in PHPMyAdmin, if I added the function with 'add routine' it worked!
+
+/* PART TWO - USE THE EDIT option on the  Qualifier function to replace the BEGIN - to  - END part with :
+========================================================================================================
+
+BEGIN
+	DECLARE s_value TEXT DEFAULT '';
+
+IF (s_data IS NOT NULL) THEN
+
+SET s_value = 
+      CASE
+        WHEN s_qualifier = 0 THEN CONCAT('<',FORMAT(s_data, 2))
+	WHEN s_qualifier = 1 THEN CONCAT('>',FORMAT(s_data, 2))
+	ELSE CONCAT('',FORMAT(s_data,2))
+      END ;
+END IF;
+
+  RETURN s_value;
+END

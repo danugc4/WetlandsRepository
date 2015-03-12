@@ -1,16 +1,17 @@
 CREATE VIEW SampleInletView
 AS
-select inlet.wetlandID AS wetlandID,inlet.sampleDate AS sampleDate,inlet.dailyFlowRate AS dailyFlowRate,
-	(CASE inlet.qCOD WHEN 0 THEN CONCAT('<',format(inlet.COD,2)) WHEN 1 THEN CONCAT('>',format(inlet.COD,2)) else CONCAT('',format(inlet.COD,2)) END) AS COD_inlet,
-	(CASE inlet.qBod WHEN 0 THEN CONCAT('<',format(inlet.BOD,2)) WHEN 1 THEN CONCAT('>',format(inlet.BOD,2)) else CONCAT('',format(inlet.BOD,2)) END) AS BOD_inlet,
-	(CASE inlet.qSuspSolids WHEN 0 THEN CONCAT('<',format(inlet.suspSolids,2)) WHEN 1 THEN CONCAT('>',format(inlet.suspSolids,2)) else CONCAT('',format(inlet.suspSolids,2)) END) AS suspSolids_inlet,
-	(CASE inlet.qPH WHEN 0 THEN CONCAT('<',format(inlet.pH,2)) WHEN 1 THEN CONCAT('>',format(inlet.pH,2)) else CONCAT('',format(inlet.pH,2)) END) AS pH_inlet,
-	(CASE inlet.qDissolvedOxy WHEN 0 THEN CONCAT('<',format(inlet.dissolvedOxy,2)) WHEN 1 THEN CONCAT('>',format(inlet.dissolvedOxy,2)) else CONCAT('',format(inlet.dissolvedOxy,2)) END) AS dissolvedOxy_inlet,
-	(CASE inlet.qTemp WHEN 0 THEN CONCAT('<',format(inlet.temp,2)) WHEN 1 THEN CONCAT('>',format(inlet.temp,2)) else CONCAT('',format(inlet.temp,2)) END) AS temp_inlet,
-	(CASE inlet.qNitrogren WHEN 0 THEN CONCAT('<',format(inlet.nitrogren,2)) WHEN 1 THEN CONCAT('>',format(inlet.nitrogren,2)) else CONCAT('',format(inlet.nitrogren,2)) END) AS nitrogen_inlet,
-	(CASE inlet.qNH4N WHEN 0 THEN CONCAT('<',format(inlet.NH4N,2)) WHEN 1 THEN CONCAT('>',format(inlet.NH4N,2)) else CONCAT('',format(inlet.NH4N,2)) END) AS NH4N_inlet,
-	(CASE inlet.qNO3N WHEN 0 THEN CONCAT('<',format(inlet.NO3N,2)) WHEN 1 THEN CONCAT('>',format(inlet.NO3N,2)) else CONCAT('',format(inlet.NO3N,2)) END) AS NO3N_inlet,
-	(CASE inlet.qTON WHEN 0 THEN CONCAT('<',format(inlet.TON,2)) WHEN 1 THEN CONCAT('>',format(inlet.TON,2)) else CONCAT('',format(inlet.TON,2)) END) AS TON_inlet,
-	(CASE inlet.qPhosphorous WHEN 0 THEN CONCAT('<',format(inlet.phosphorous,2)) WHEN 1 THEN CONCAT('>',format(inlet.phosphorous,2)) else CONCAT('',format(inlet.phosphorous,2)) END) AS phosphorous_inlet,
-	(CASE inlet.qPO4P WHEN 0 THEN CONCAT('<',format(inlet.PO4P,2)) WHEN 1 THEN CONCAT('>',format(inlet.PO4P,2)) else CONCAT('',format(inlet.PO4P,2)) END) AS PO4P_inlet from mydb1831.Sample inlet 
-	 where (inlet.samplePoint = 'I');
+SELECT wetlandID, sampleDate, dailyFlowRate, 
+Qualifier(COD,qCOD) AS COD_inlet,
+Qualifier(BOD,qBod) AS BOD_inlet,
+Qualifier(suspSolids,qSuspSolids) AS SS_inlet,
+Qualifier(pH,qPH) AS pH_inlet,
+Qualifier(dissolvedOxy,qDissolvedOxy) AS Oxy_inlet,
+Qualifier(temp,qTemp) AS Temp_inlet,
+Qualifier(nitrogren,qNitrogren) AS N_inlet,
+Qualifier(NH4N,qNH4N) AS NH4N_inlet,
+Qualifier(NO3N,qNO3N) AS NO3N_inlet,
+Qualifier(TON,qTON) AS TON_inlet,
+Qualifier(phosphorous,qPhosphorous) AS P_inlet,
+Qualifier(PO4P,qPO4P) AS PO4P_inlet
+FROM mydb1831.SampleData inlet LEFT JOIN mydb1831.WetlandSample w ON w.id = inlet.sampleID
+	 WHERE (inlet.samplePoint = 'I') 

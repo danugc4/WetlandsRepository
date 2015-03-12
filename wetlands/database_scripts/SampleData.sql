@@ -1,0 +1,153 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10deb1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Mar 12, 2015 at 12:40 AM
+-- Server version: 5.5.41-0ubuntu0.14.04.1-log
+-- PHP Version: 5.5.9-1ubuntu4.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `mydb1831`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SampleData`
+--
+
+CREATE TABLE IF NOT EXISTS `SampleData` (
+  `sampleID` int(11) NOT NULL,
+  `samplePoint` set('I','O') NOT NULL,
+  `COD` float NOT NULL,
+  `qCOD` tinyint(1) DEFAULT NULL,
+  `BOD` float NOT NULL,
+  `qBod` tinyint(1) DEFAULT NULL,
+  `suspSolids` float NOT NULL,
+  `qSuspSolids` tinyint(1) DEFAULT NULL,
+  `pH` float NOT NULL,
+  `qPH` tinyint(1) DEFAULT NULL,
+  `dissolvedOxy` float NOT NULL,
+  `qDissolvedOxy` tinyint(1) DEFAULT NULL,
+  `temp` float NOT NULL,
+  `qTemp` tinyint(1) DEFAULT NULL,
+  `nitrogren` float NOT NULL,
+  `qNitrogren` tinyint(1) DEFAULT NULL,
+  `NH4N` float NOT NULL,
+  `qNH4N` tinyint(1) DEFAULT NULL,
+  `NO3N` float NOT NULL,
+  `qNO3N` tinyint(1) DEFAULT NULL,
+  `TON` float NOT NULL,
+  `qTON` tinyint(1) DEFAULT NULL,
+  `phosphorous` float NOT NULL,
+  `qPhosphorous` tinyint(1) DEFAULT NULL,
+  `PO4P` float NOT NULL,
+  `qPO4P` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`sampleID`,`samplePoint`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `SampleData`
+--
+
+INSERT INTO `SampleData` (`sampleID`, `samplePoint`, `COD`, `qCOD`, `BOD`, `qBod`, `suspSolids`, `qSuspSolids`, `pH`, `qPH`, `dissolvedOxy`, `qDissolvedOxy`, `temp`, `qTemp`, `nitrogren`, `qNitrogren`, `NH4N`, `qNH4N`, `NO3N`, `qNO3N`, `TON`, `qTON`, `phosphorous`, `qPhosphorous`, `PO4P`, `qPO4P`) VALUES
+(1, 'I', 10, 0, 2, 0, 2, 0, 7.2, NULL, 0, NULL, 0, NULL, 8.69, NULL, 0, NULL, 0, NULL, 0, NULL, 0.54, NULL, 0.15, NULL),
+(1, 'O', 10, 0, 2, 0, 2, 0, 7.3, NULL, 0, NULL, 0, NULL, 1.11, NULL, 0, NULL, 0, NULL, 0, NULL, 0.06, NULL, 0.029, NULL),
+(2, 'I', 33, NULL, 2, 0, 2, 0, 7.4, NULL, 0, NULL, 0, NULL, 10.6, NULL, 0, NULL, 0, NULL, 0, NULL, 0.22, NULL, 0.094, NULL),
+(2, 'O', 43, NULL, 2, 0, 2, 0, 7.4, NULL, 0, NULL, 0, NULL, 0.926, NULL, 0, NULL, 0, NULL, 0, NULL, 0.06, NULL, 0.015, NULL),
+(3, 'I', 17, NULL, 2, 0, 2, 0, 7.8, NULL, 0, NULL, 0, NULL, 13.6, NULL, 0, NULL, 0, NULL, 0, NULL, 2.08, NULL, 1.73, NULL),
+(3, 'O', 27, NULL, 2, 0, 2, 0, 7.6, NULL, 0, NULL, 0, NULL, 3.49, NULL, 0, NULL, 0, NULL, 0, NULL, 0.76, NULL, 0.675, NULL),
+(4, 'I', 48, NULL, 2, 0, 2, 0, 7.5, NULL, 0, NULL, 0, NULL, 12.6, NULL, 0, NULL, 0, NULL, 0, NULL, 3.4, NULL, 0.25, NULL),
+(4, 'O', 40, NULL, 2, 0, 2, NULL, 7.5, NULL, 0, NULL, 0, NULL, 3.73, NULL, 0, NULL, 0, NULL, 0, NULL, 0.93, NULL, 0.883, NULL),
+(5, 'I', 108, NULL, 40, NULL, 35, NULL, 7.4, NULL, 0, NULL, 0, NULL, 12.8, NULL, 0, NULL, 0, NULL, 0, NULL, 2.24, NULL, 1.4, NULL),
+(5, 'O', 22, NULL, 2, 0, 27, NULL, 7.9, NULL, 0, NULL, 0, NULL, 4.63, NULL, 0, NULL, 0, NULL, 0, NULL, 0.94, NULL, 0.696, NULL),
+(6, 'I', 18, NULL, 2, 0, 2, 0, 7.5, NULL, 0, NULL, 0, NULL, 19.6, NULL, 1.99, NULL, 0, NULL, 0.1, 0, 2.9, NULL, 2.31, NULL),
+(6, 'O', 20, NULL, 2, 0, 7, NULL, 7.3, NULL, 0, NULL, 0, NULL, 10.9, NULL, 0, NULL, 0, NULL, 0, NULL, 2.52, NULL, 2.26, NULL),
+(7, 'I', 10, 0, 2, 0, 11, NULL, 6.7, NULL, 0, NULL, 0, NULL, 13.9, NULL, 9.54, NULL, 0, NULL, 2.4, NULL, 0.25, NULL, 0.132, NULL),
+(7, 'O', 10, 0, 2, 0, 2, 0, 6.7, NULL, 0, NULL, 0, NULL, 6.33, NULL, 0, NULL, 0, NULL, 0, NULL, 1.04, NULL, 1.04, NULL),
+(8, 'I', 10, 0, 2, 0, 5, NULL, 7.2, NULL, 0, NULL, 0, NULL, 8.13, NULL, 4.86, NULL, 0, NULL, 2.34, NULL, 0.22, NULL, 0.04, NULL),
+(8, 'O', 10, 0, 2, 0, 2, NULL, 7.2, NULL, 0, NULL, 0, NULL, 2.4, NULL, 0, NULL, 0, NULL, 0, NULL, 0.17, NULL, 0.13, NULL),
+(9, 'I', 10, NULL, 2, 0, 3, NULL, 7.4, NULL, 0, NULL, 0, NULL, 9.07, NULL, 0.406, NULL, 0, NULL, 7.43, NULL, 0.14, NULL, 0.012, NULL),
+(9, 'O', 13, NULL, 2, 0, 2, 0, 7.2, NULL, 0, NULL, 0, NULL, 3.53, NULL, 0, NULL, 0, NULL, 0, NULL, 0.23, NULL, 0.086, NULL),
+(10, 'I', 13, NULL, 2, 0, 4, NULL, 7.1, NULL, 0, NULL, 0, NULL, 7.94, NULL, 0.581, NULL, 0, NULL, 7.27, NULL, 0.79, NULL, 0.586, NULL),
+(10, 'O', 10, 0, 2, 0, 2, NULL, 7, NULL, 0, NULL, 0, NULL, 2.94, NULL, 0, NULL, 0, NULL, 0, NULL, 0.48, NULL, 0.405, NULL),
+(11, 'I', 40, NULL, 2, 0, 6, NULL, 7, NULL, 0, NULL, 0, NULL, 8.66, NULL, 1.82, NULL, 0, NULL, 5.69, NULL, 0.324, NULL, 0.175, NULL),
+(11, 'O', 43, NULL, 2, 0, 3, NULL, 6.7, NULL, 0, NULL, 0, NULL, 5.83, NULL, 0, NULL, 0, NULL, 0, NULL, 0.18, NULL, 0.075, NULL),
+(12, 'I', 16, NULL, 2, 0, 3, NULL, 6.9, NULL, 0, NULL, 0, NULL, 11.9, NULL, 1.36, NULL, 0, NULL, 11.1, NULL, 0.24, NULL, 0.055, NULL),
+(12, 'O', 10, NULL, 2, 0, 2, 0, 6.7, NULL, 0, NULL, 0, NULL, 3.92, NULL, 0, NULL, 0, NULL, 0, NULL, 0.09, NULL, 0.022, NULL),
+(13, 'O', 0, NULL, 1.8, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(14, 'O', 27, NULL, 4, NULL, 0, NULL, 7.4, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0.197, NULL, 0, NULL, 0, NULL, 0, NULL),
+(15, 'O', 27, NULL, 1.8, NULL, 2, NULL, 7.17, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(16, 'O', 22, NULL, 1.32, NULL, 6, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(17, 'O', 34, NULL, 0.9, NULL, 2, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(18, 'O', 32, NULL, 1.3, NULL, 6, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 3.7, NULL, 0, NULL),
+(19, 'O', 28, NULL, 1.8, NULL, 2, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(20, 'O', 25, NULL, 1.9, NULL, 0, NULL, 7.64, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0.0528, NULL, 0, NULL, 0, NULL, 0, NULL),
+(21, 'O', 23, NULL, 1.9, NULL, 0.2, NULL, 7.78, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(22, 'O', 26, NULL, 1, NULL, 0.2, NULL, 7.31, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(23, 'O', 30, NULL, 1.14, NULL, 3, NULL, 7.13, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(24, 'O', 35, NULL, 1, NULL, 1, NULL, 7.44, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(25, 'I', 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 6.713, NULL, 3.543, NULL),
+(25, 'O', 0, 0, 1, NULL, 0.8, NULL, 7.25, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(26, 'O', 21.8, NULL, 1.1, NULL, 0.4, NULL, 7.08, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(27, 'O', 44.2, NULL, 5.2, NULL, 2, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(28, 'I', 64.7, NULL, 6.8, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(28, 'O', 19.5, NULL, 3, NULL, 1.4, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(29, 'I', 106.6, NULL, 0, NULL, 15.2, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(29, 'O', 10.2, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(30, 'I', 84.1, NULL, 7.2, NULL, 35.6, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(31, 'O', 6.8, NULL, 1.4, NULL, 0.4, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(32, 'O', 27, NULL, 5, NULL, 15, NULL, 6.18, NULL, 0, NULL, 0, NULL, 4.343, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(33, 'O', 17, NULL, 2, NULL, 4, NULL, 7.32, NULL, 0, NULL, 0, NULL, 7, NULL, 0, NULL, 0, NULL, 0, NULL, 3.169, NULL, 0, NULL),
+(34, 'I', 16, NULL, 42, NULL, 28, NULL, 7.5, NULL, 0, NULL, 0, NULL, 10.51, NULL, 0, NULL, 0, NULL, 0, NULL, 0.925, NULL, 0, NULL),
+(34, 'O', 25, NULL, 2, NULL, 0, NULL, 7.36, NULL, 0, NULL, 0, NULL, 6.59, NULL, 0, NULL, 0, NULL, 0, NULL, 1.278, NULL, 0, NULL),
+(35, 'O', 19, NULL, 2, NULL, 2, NULL, 7.31, NULL, 0, NULL, 0, NULL, 0, 9, 0, NULL, 0, NULL, 0, NULL, 1.506, NULL, 0, NULL),
+(36, 'O', 14, NULL, 2, NULL, 5, NULL, 7.15, NULL, 0, NULL, 0, NULL, 7.67, NULL, 0, NULL, 0, NULL, 0, NULL, 1.256, NULL, 0, NULL),
+(37, 'O', 97, NULL, 18, NULL, 0, NULL, 7.04, NULL, 0, NULL, 0, NULL, 1, 0, 0, NULL, 0, NULL, 0, NULL, 3.334, NULL, 0, NULL),
+(38, 'O', 9, NULL, 2, NULL, 1, NULL, 7.33, NULL, 0, NULL, 0, NULL, 6.79, NULL, 0, NULL, 0, NULL, 0, NULL, 1.574, NULL, 0, NULL),
+(39, 'I', 36, NULL, 5, NULL, 20, NULL, 7.41, NULL, 0, NULL, 0, NULL, 6.39, NULL, 0, NULL, 0, NULL, 0, NULL, 0.747, NULL, 0, NULL),
+(39, 'O', 18, NULL, 1, NULL, 1, NULL, 7.18, NULL, 0, NULL, 0, NULL, 3.8, 1, 0, NULL, 0, NULL, 0, NULL, 0.576, NULL, 0, NULL),
+(40, 'O', 19, NULL, 1, NULL, 16, NULL, 7.56, NULL, 0, NULL, 0, NULL, 2.6, NULL, 0, NULL, 0, NULL, 0, NULL, 1.34, NULL, 0, NULL),
+(41, 'O', 70, NULL, 31, NULL, 31, NULL, 0, NULL, 0, NULL, 0, NULL, 9.9, NULL, 0, NULL, 0, NULL, 0, NULL, 4.9, NULL, 0, NULL),
+(42, 'O', 67, NULL, 24, NULL, 14, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(43, 'O', 22, NULL, 1, 0, 5, 0, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(44, 'O', 18, NULL, 0, NULL, 0.8, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(45, 'O', 24, NULL, 0, NULL, 7.5, 0, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(46, 'O', 24, NULL, 0, NULL, 11.2, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(47, 'O', 23.2, NULL, 0, NULL, 1.2, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(48, 'O', 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 1, 0),
+(49, 'O', 19, NULL, 0, NULL, 2.5, 0, 7.27, NULL, 0, NULL, 0, NULL, 3.76, NULL, 0.275, NULL, 0, NULL, 0, NULL, 0.748, NULL, 0.733, NULL),
+(50, 'O', 48, NULL, 0, NULL, 4.33, NULL, 7.27, NULL, 0, NULL, 0, NULL, 3.76, NULL, 0, NULL, 0, NULL, 0, NULL, 1.78, NULL, 1.62, NULL),
+(51, 'O', 26, NULL, 0, NULL, 5.6, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 1, 0),
+(52, 'O', 15, 0, 0, NULL, 10, 0, 7.26, NULL, 0, NULL, 0, NULL, 0, NULL, 3.383, NULL, 0, NULL, 0, NULL, 0, NULL, 3.39, NULL),
+(53, 'O', 23.8, NULL, 0, NULL, 1, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL),
+(54, 'O', 18, NULL, 0, NULL, 2.5, 0, 7.2, NULL, 0, NULL, 0, NULL, 5.94, NULL, 0.294, NULL, 0, NULL, 0, NULL, 1.44, NULL, 1.06, NULL),
+(55, 'O', 36, NULL, 0, NULL, 2.5, 0, 7.24, NULL, 0, NULL, 0, NULL, 3.5, NULL, 0.139, NULL, 0, NULL, 0, NULL, 0.84, NULL, 0.71, NULL),
+(57, 'O', 20, 0, 2.8, NULL, 10, NULL, 7.61, NULL, 0, NULL, 0, NULL, 0, NULL, 0.093, NULL, 0, NULL, 0, NULL, 0, NULL, 0.72, NULL),
+(58, 'O', 24, NULL, 1.56, NULL, 13, NULL, 7.33, NULL, 0, NULL, 0, NULL, 0, NULL, 0.08, NULL, 0, NULL, 0, NULL, 0, NULL, 2.6, NULL),
+(59, 'O', 18, NULL, 3.14, NULL, 7, 0, 7.06, NULL, 0, NULL, 0, NULL, 0, NULL, 0.402, NULL, 0, NULL, 0, NULL, 0, NULL, 0.36, NULL),
+(60, 'O', 21, NULL, 1.73, NULL, 11, NULL, 7.62, NULL, 0, NULL, 0, NULL, 0, NULL, 0.079, NULL, 0, NULL, 0, NULL, 0, NULL, 2.09, NULL);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `SampleData`
+--
+ALTER TABLE `SampleData`
+  ADD CONSTRAINT `FK_WetlandSample` FOREIGN KEY (`sampleID`) REFERENCES `WetlandSample` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

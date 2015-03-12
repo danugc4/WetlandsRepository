@@ -12,7 +12,7 @@ $conn->query("SET NAMES utf8");
 // Create the jqGrid instance
 $grid = new jqGridRender($conn);
 // Write the SQL Query
-$grid->SelectCommand = 'SELECT wetlandID, sampleDate, dailyFlowRate, COD_inlet, COD_outlet, BOD_inlet, BOD_outlet FROM SampleView';
+$grid->SelectCommand = 'SELECT wetlandID, sampleDate, dailyFlowRate, COD_inlet, COD_outlet, BOD_inlet, BOD_outlet, SS_inlet, SS_outlet, pH_inlet, pH_outlet FROM SampleView';
 
 // set the ouput format to json
 $grid->dataType = 'json';
@@ -65,14 +65,14 @@ $grid->setColProperty("COD_inlet", array("label"=>"COD_inlet", "width"=>70));
 $grid->setColProperty("COD_outlet", array("label"=>"COD_outlet", "width"=>70));
 $grid->setColProperty("BOD_inlet", array("label"=>"BOD_inlet", "width"=>70));
 $grid->setColProperty("BOD_outlet", array("label"=>"BOD_outlet", "width"=>70));
-/*$grid->setColProperty("suspSolids_inlet", array("label"=>"SS_inlet", "width"=>70));
-$grid->setColProperty("suspSolids_outlet", array("label"=>"SS_outlet", "width"=>70));
+$grid->setColProperty("SS_inlet", array("label"=>"SS_inlet", "width"=>70));
+$grid->setColProperty("SS_outlet", array("label"=>"SS_outlet", "width"=>70));
 $grid->setColProperty("pH_inlet", array("label"=>"pH_inlet", "width"=>70));
 $grid->setColProperty("pH_outlet", array("label"=>"pH_outlet", "width"=>70));
- $grid->setColProperty("dissolvedOxy_inlet", array("label"=>"Oxy_inlet", "width"=>70));
-$grid->setColProperty("dissolvedOxy_outlet", array("label"=>"Oxy_outlet", "width"=>70));
-$grid->setColProperty("temp_inlet", array("label"=>"Temp_inlet", "width"=>70));
-$grid->setColProperty("temp_outlet", array("label"=>"Temp_outlet", "width"=>70));
+/* $grid->setColProperty("Oxy_inlet", array("label"=>"Oxy_inlet", "width"=>70));
+$grid->setColProperty("Oxy_outlet", array("label"=>"Oxy_outlet", "width"=>70));
+$grid->setColProperty("Temp_inlet", array("label"=>"Temp_inlet", "width"=>70));
+$grid->setColProperty("Temp_outlet", array("label"=>"Temp_outlet", "width"=>70));
 $grid->setColProperty("nitrogen_inlet", array("label"=>"N_inlet", "width"=>70));
 $grid->setColProperty("nitrogen_outlet", array("label"=>"N_outlet", "width"=>70));
 $grid->setColProperty("NH4N_inlet", array("label"=>"NH4N_inlet", "width"=>70));
