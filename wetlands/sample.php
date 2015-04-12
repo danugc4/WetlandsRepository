@@ -2,12 +2,17 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" type="text/css" media="screen"
+ 	<link rel="stylesheet" type="text/css" media="screen"
 	href="jqgrid/themes/jquery-ui.theme.css" />
-<link rel="stylesheet" type="text/css" media="screen"
+	<link rel="stylesheet" type="text/css" media="screen"
 	href="jqgrid/themes/ui.jqgrid.css" />
-<script src="jqgrid/js/jquery.min.js" type="text/javascript"></script>
-<script src="jqgrid/js/trirand/i18n/grid.locale-en.js"	type="text/javascript"></script>
+	<script src="jqgrid/js/jquery.min.js" type="text/javascript"></script>
+	<script src="jqgrid/js/trirand/i18n/grid.locale-en.js"	type="text/javascript"></script>
+
+	<script src="js/galleria/galleria-1.4.2.min.js"></script> 
+
+    <link rel="stylesheet" href="css/galleria/themes/classic/galleria.classic.css"/> 
+    <script src="css/galleria/themes/classic/galleria.classic.min.js"></script> 
 
 <script type="text/javascript">
 		$.jgrid.no_legacy_api = true;
@@ -41,6 +46,8 @@ $(document).ready(function(){
 		
 		
 		$("#grid").trigger("reloadGrid",[{page:1,current:true}]); 
+
+
 	});
 
 	function mysqlDate(date) {
@@ -52,7 +59,22 @@ $(document).ready(function(){
 		var splitter = date.split("/");
 		console.log("splitter: " + splitter);
 		return splitter[2]+'-'+splitter[1]+'-'+splitter[0];	 
-	}
+	};
+
+
+	var images = [
+	              { image: 'images/wetlands/DSCN2579.jpg'},
+	              { image: 'images/wetlands/IMG_1997.JPG'},
+	              { image: 'images/wetlands/Leitrim6Mar2014 058.jpg'},
+	              { image: 'images/wetlands/Leitrim6Mar2014 062.jpg'}
+	          ];
+
+    Galleria.configure({
+              transition: 'fade',
+              imageCrop: true,
+              dataSource: images
+          });
+    Galleria.run('.galleria');	
 });
 </script>
 </head>
@@ -106,7 +128,7 @@ $(document).ready(function(){
 		     include_once "includes/partials/samplesgrid.php";  ?></div>	   
 		  </div>
 		  <div id="wetland_section" class="tab-pane fade">
-		 	 <p>Images, image descriptions</p>
+		 	 <div class="galleria" style="width:400px; height:300px"/>
 		  </div>
 		  
 		  <div id="publications_section" class="tab-pane fade">
@@ -116,6 +138,9 @@ $(document).ready(function(){
 		  	<p>observations</p>
 		  </div>
 	</div>	
+	
+	
+	
 		<?php include 'includes/footer_grid.php'; ?>
 	</body>
 
