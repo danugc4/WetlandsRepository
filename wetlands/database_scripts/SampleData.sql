@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.2.9.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 12, 2015 at 12:40 AM
--- Server version: 5.5.41-0ubuntu0.14.04.1-log
--- PHP Version: 5.5.9-1ubuntu4.6
+-- Generation Time: Apr 13, 2015 at 11:38 PM
+-- Server version: 5.6.22-log
+-- PHP Version: 5.5.15-pl0-gentoo
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -52,8 +52,7 @@ CREATE TABLE IF NOT EXISTS `SampleData` (
   `phosphorous` float NOT NULL,
   `qPhosphorous` tinyint(1) DEFAULT NULL,
   `PO4P` float NOT NULL,
-  `qPO4P` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`sampleID`,`samplePoint`)
+  `qPO4P` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -139,14 +138,14 @@ INSERT INTO `SampleData` (`sampleID`, `samplePoint`, `COD`, `qCOD`, `BOD`, `qBod
 (60, 'O', 21, NULL, 1.73, NULL, 11, NULL, 7.62, NULL, 0, NULL, 0, NULL, 0, NULL, 0.079, NULL, 0, NULL, 0, NULL, 0, NULL, 2.09, NULL);
 
 --
--- Constraints for dumped tables
+-- Indexes for dumped tables
 --
 
 --
--- Constraints for table `SampleData`
+-- Indexes for table `SampleData`
 --
 ALTER TABLE `SampleData`
-  ADD CONSTRAINT `FK_WetlandSample` FOREIGN KEY (`sampleID`) REFERENCES `WetlandSample` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`sampleID`,`samplePoint`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

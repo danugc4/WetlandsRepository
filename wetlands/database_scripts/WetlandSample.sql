@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.2.9.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2015 at 06:35 PM
--- Server version: 5.5.41-0ubuntu0.14.04.1-log
--- PHP Version: 5.5.9-1ubuntu4.6
+-- Generation Time: Apr 13, 2015 at 11:47 PM
+-- Server version: 5.6.22-log
+-- PHP Version: 5.5.15-pl0-gentoo
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,13 +27,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `WetlandSample` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `wetlandID` int(11) NOT NULL,
   `sampleDate` date NOT NULL,
-  `dailyFlowRate` float NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `wetlandID` (`wetlandID`,`sampleDate`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=61 ;
+  `dailyFlowRate` float NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `WetlandSample`
@@ -102,6 +100,25 @@ INSERT INTO `WetlandSample` (`id`, `wetlandID`, `sampleDate`, `dailyFlowRate`) V
 (60, 5, '2014-04-30', 0);
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `WetlandSample`
+--
+ALTER TABLE `WetlandSample`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `wetlandID` (`wetlandID`,`sampleDate`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `WetlandSample`
+--
+ALTER TABLE `WetlandSample`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
+--
 -- Constraints for dumped tables
 --
 
@@ -109,7 +126,7 @@ INSERT INTO `WetlandSample` (`id`, `wetlandID`, `sampleDate`, `dailyFlowRate`) V
 -- Constraints for table `WetlandSample`
 --
 ALTER TABLE `WetlandSample`
-  ADD CONSTRAINT `FK_WetlandID` FOREIGN KEY (`wetlandID`) REFERENCES `Wetland` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `FK_WetlandID` FOREIGN KEY (`wetlandID`) REFERENCES `Wetland` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
