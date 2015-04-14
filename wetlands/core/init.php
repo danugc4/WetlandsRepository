@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-// Create a global configuration
+
+// Create a global configuration. One for mysql, remember and session.
 $GLOBALS['config'] = array(
 	'mysql' => array(
 		'host' 		=> 'localhost',
@@ -11,7 +12,7 @@ $GLOBALS['config'] = array(
 	),
 	'remember' => array(
 		'cookie_name'	=> 'hash',
-		'cookie_expiry' =>  604800
+		'cookie_expiry' =>  604800 //one month in seconds
 	),
 	'session' => array(
 		'session_name'	=> 'user',
@@ -22,7 +23,7 @@ $GLOBALS['config'] = array(
 //define('PATH', dirname(__DIR__));
 
 // Autoload classes using anonymous function
-spl_autoload_register(function ($class) {
+spl_autoload_register(function ($class) {//paramater class of the class we are trying to access
 	require_once dirname(__DIR__).'/classes/' . $class . '.php';
 });
 
@@ -43,3 +44,5 @@ if(Cookie::exists(Config::get('remember/cookie_name'))) {
 		}
 	}
 }
+
+$user = new User();
