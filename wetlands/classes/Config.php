@@ -1,7 +1,7 @@
 <?php
 class Config {
 	public static function get($path = null) {
-		if($path) {
+		if($path) {//does myaql exist in config
 			$config = $GLOBALS['config'];
 			$path = explode('/', $path);
 
@@ -11,7 +11,7 @@ class Config {
 				}
 			}
 
-			return $config;
+			return $config;//return host
 		}
 
 		return false;

@@ -1,27 +1,27 @@
 <?php
 class Validate {
-	private $_passed = false,
+	private $_passed = false, 
 			$_errors = array(),
 			$_db = null;
 
-	public function __construct() {
-		$this->_db = DB::getInstance();
+	public function __construct() { 
+		$this->_db = DB::getInstance(); // Use DB class
 	}
 
-	public function check($source, $items = array()) {
-		foreach($items as $item => $rules) {
+	public function check($source, $items = array()) { //source is get or post
+		foreach($items as $item => $rules) { // item e.g. username. Rules is the array that governs the rules.
 			$value = trim($source[$item]);
 			$item = escape($item);
 			
-			foreach($rules as $rule => $rule_value) {
+			foreach($rules as $rule => $rule_value) { // rule_value is value of the rule e.g. min value 5
 
-				if($rule === 'required' && $rule_value === true && empty($value)) {
-					$this->addError("{$item} is required.");
-				} else if (!empty($value)) {
+				if($rule === 'required' && $rule_value === true && empty($value)) { // check if there is there is a value 
+					$this->addError("{$item} is required."); // call add error
+				} else if (!empty($value)) { // if there is a value
 
-					switch($rule) {
+					switch($rule) { // switch to defined case
 						case 'min':
-							if(strlen($value) < $rule_value) {
+							if(strlen($value) < $rule_value) { //strlen to check amount of charaters in the string
 								$this->addError("{$item} must be a minimum of {$rule_value} characters.");
 							}
 						break;
@@ -31,17 +31,17 @@ class Validate {
 							}
 						break;
 						case 'matches':
-							if($value != $source[$rule_value]) {
+							if($value != $source[$rule_value]) { // items have the same value
 								$this->addError("{$rule_value} must match {$item}.");
 							}
 						break;
-						case 'unique':
+                        case 'unique': // uniques value, doesn't have the same value as any record in the users table
 							$check = $this->_db->get($rule_value, array($item, '=', $value));
 							if($check->count()) {
 								$this->addError("{$item} is already taken.");
 							}
 						break;
-						// TODO regex matching patterns (i.e names must be alphanumeric)
+						
 					}
 
 				}
@@ -50,17 +50,17 @@ class Validate {
 		}
 
 		if(empty($this->_errors)) {
-			$this->_passed = true;
+			$this->_passed = true; // passed if errors array is empty
 		}
 
 		return $this;
 	}
 
-	protected function addError($error) {
+	protected function addError($error) { // add an error to the errors array
 		$this->_errors[] = $error;
 	}
 
-	public function passed() {
+	public function passed() { 
 		return $this->_passed;
 	}
 

@@ -4,7 +4,6 @@ class UploadFile
 {
 	protected $destination;
 	protected $messages = array();
-	protected $maxSize = 51200;
 	protected $_db;
 	protected $_data = array();
 	protected $permittedTypes = array(
@@ -21,8 +20,6 @@ class UploadFile
 	protected $renameDuplicates; 
 	
 	
-	
-	
 	public function __construct($uploadFolder)
 	{
 		$this->_db = DB::getInstance();
@@ -35,57 +32,7 @@ class UploadFile
 		$this->destination = $uploadFolder;
 	}
 	
-	public function setMaxSize($bytes)
-	{
-		$serverMax = self::convertToBytes(ini_get('upload_max_filesize'));
-		if ($bytes > $serverMax) {
-			throw new \Exception('Maximum size cannot exceed server limit for individual files: ' .
-	self::convertFromBytes($serverMax));
-		}
-		if (is_numeric($bytes) && $bytes > 0) {
-			$this->maxSize = $bytes;
-		}
-	}
-	
-	public static function convertToBytes($val)
-	{
-		$val = trim($val);
-		$last = strtolower($val[strlen($val)-1]);
-		if (in_array($last, array('g', 'm', 'k'))){
-			switch ($last) {
-				case 'g':
-					$val *= 1024;
-				case 'm':
-					$val *= 1024;
-				case 'k':
-					$val *= 1024;
-			}
-		}
-		return $val;
-	}
-	
-	public static function convertFromBytes($bytes)
-	{
-		$bytes /= 1024;
-		if ($bytes > 1024) {
-			return number_format($bytes/1024, 1) . ' MB';
-		} else {
-			return number_format($bytes, 1) . ' KB';
-		}
-	}
-	
-	public function allowAllTypes($suffix = null)
-	{
-		$this->typeCheckingOn = false;
-		if (!is_null($suffix)) {
-			if (strpos($suffix, '.') === 0 || $suffix == '') {
-				$this->suffix = $suffix;
-			} else {
-				$this->suffix = ".$suffix";
-			}
-		}
-	}
-	
+       
 	public function upload($renameDuplicates = true)
 	{
 		$this->renameDuplicates = $renameDuplicates;
@@ -128,9 +75,6 @@ class UploadFile
 			$this->getErrorMessage($file);
 			return false;
 		}
-		if (!$this->checkSize($file)) {
-			return false;
-		}
 		if ($this->typeCheckingOn) {
 		    if (!$this->checkType($file)) {
 			    return false;
@@ -160,19 +104,7 @@ class UploadFile
 		}
 	}
 	
-	protected function checkSize($file)
-	{
-		if ($file['size'] == 0) {
-			$this->messages[] = $file['name'] . ' is empty.';
-			return false;
-		} elseif ($file['size'] > $this->maxSize) {
-			$this->messages[] = $file['name'] . ' exceeds the maximum size for a file ('
-					. self::convertFromBytes($this->maxSize) . ').';
-			return false;
-		} else {
-			return true;
-		}
-	}
+	
 	
 	protected function checkType($file) 
 	{
@@ -220,26 +152,20 @@ class UploadFile
 	public function created($fields = array()) {
 
 		if(!$this->_db->insert('file', $fields))
-
 		{
 			throw new Exception('There was a problem uploading.');
 		}
 	}
 	
-	/*public function data() {
-		return $this->_data;
-	}*/
+	
 	
 	protected function moveFile($file)
 	{
 		$filename = isset($this->newName) ? $this->newName : $file['name'];
 		$success = move_uploaded_file($file['tmp_name'], $this->destination . $filename);
 		if ($success) {
-		//echo $user->data()->username;
-		
-		
 		$fields = array( 
-					'username' => ($_SESSION['user']),
+					'userID' => ($_SESSION['user']),
 					'filename' => ($filename),
 					'uploaded' => (date('Y-m-d H:i:s'))
 				);
