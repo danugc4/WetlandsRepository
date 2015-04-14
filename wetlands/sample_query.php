@@ -76,63 +76,73 @@
 	
 	<body>
 	<p></p>
-	 <div class = "container" id="filter" >
-	    <div class = "row">			
-		    <div class = "col-sm-9">
-			<select name="county"  id="county-select">
-				<option value="%">All counties</option>
-				      <?php foreach($counties as $county): ?>
-				      <option> <?php echo $county; ?></option> 
-				       <?php endforeach; ?>  
-			</select>
+    <div class ='jumbotron'>
+		<div class="row">
+		  <div class="center-block">
+
+		
+				<div class = "container" id="filter" >
+					<div class = "row">			
+						<div class = "center-block">
+						<select name="county"  id="county-select">
+							<option value="%">All counties</option>
+								  <?php foreach($counties as $county): ?>
+								  <option> <?php echo $county; ?></option> 
+								   <?php endforeach; ?>  
+						</select>
+						</div>
+					</div>
+				</div> 
+		   <br>
+			<div class = "container" id="filter" >
+				<div class = "row">			
+					<div class = "center-block"> 
+					<select name="siteSource"  id="siteSource-select">
+						<option value="%">All source of waste water</option>
+								<?php foreach($siteSources as $siteSource): ?> 
+								 <option ><?php echo $siteSource['siteSourceName']; ?></option> 
+								 <?php endforeach; ?> 
+					</select>   
+					</div>
+				</div>
 			</div>
-		</div>
-	</div> 
-   <br>
-   	<div class = "container" id="filter" >
-	    <div class = "row">			
-		    <div class = "col-sm-9"> 
-			<select name="siteSource"  id="siteSource-select">
-				<option value="%">All source of waste water</option>
-					 	<?php foreach($siteSources as $siteSource): ?> 
-	 	     			 <option ><?php echo $siteSource['name']; ?></option> 
-       					 <?php endforeach; ?> 
-			</select>   
+			 <br>
+			<div class = "container" id="filter" >
+				<div class = "row">			
+					<div class = "center-block"> 
+					<select name="pretreatment"  id="pretreatment-select">
+						<option value="%">All pretreatment types</option>
+								<?php foreach($pretreatments as $pretreatment): ?> 
+								 <option><?php echo $pretreatment['pretreatmentName']; ?></option> 
+								 <?php endforeach; ?> 
+					</select>   
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-	 <br>
-	<div class = "container" id="filter" >
-	    <div class = "row">			
-		    <div class = "col-sm-9"> 
-			<select name="pretreatment"  id="pretreatment-select">
-				<option value="%">All pretreatment types</option>
-					 	<?php foreach($pretreatments as $pretreatment): ?> 
-	 	     			 <option><?php echo $pretreatment['name']; ?></option> 
-       					 <?php endforeach; ?> 
-			</select>   
-			</div>
-		</div>
-	</div>
-	<br>
-	<div id="example"></div>
-			
-	<div class = "container">
-	    <div class = "row">			
-		    <div class = "col-sm-9">
-			
-		    <div id="wetlands-list"></div>
-			
-			</div>
-		</div>
-	</div>	
-	<div class = "container">
-		<button id="getselected">Get Selected Rows</button>
-	
-			
-	        <?php include "includes/partials/wetlandsgrid.php";?>		   
-	  </div>	        	    
-			<?php include 'includes/footer_grid.php'; ?>	
+			<br>
+			<div id="example"></div>
+					
+			<div class = "container">
+				<div class = "row">			
+					<div class = "center-block">
+					
+					<div id="wetlands-list"></div>
+					
+					</div>
+				</div>
+			</div>	
+			<div class = "container">
+				<button id="getselected">Get Selected Rows</button>
+						
+				
+					
+					<?php include "includes/partials/wetlandsgrid.php";?>		   
+			</div>	        	    
+		 </div>
+		 </div>
+    </div>
+
+			<?php include 'includes/overall/footer.php'; ?>	
 
 	</body>
 	

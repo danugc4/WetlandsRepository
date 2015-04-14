@@ -1,5 +1,6 @@
-<?php include 'includes/overall/header.php'; 
+<?php 
 require_once 'core/init.php';
+include 'includes/overall/header.php'; 
 
 if(Input::exists()) {
 
