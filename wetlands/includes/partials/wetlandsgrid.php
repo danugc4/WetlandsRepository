@@ -11,7 +11,7 @@ $conn = new PDO(DB_DSN,DB_USER,DB_PASSWORD);
 $grid = new jqGridRender($conn);
 
 // Write the SQL Query
-$grid->SelectCommand = 'SELECT wetlandID, county, SiteSourceType.name AS siteSource, pretreatment, wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.id AS wetlandID, Wetland.county, Wetland.name AS Wetland, PretreatmentType.name AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
+$grid->SelectCommand = 'SELECT wetlandID, county, SiteSourceType.siteSourceName AS siteSource, pretreatment, wetland FROM SiteSourceType RIGHT JOIN (SELECT Wetland.id AS wetlandID, Wetland.county, Wetland.name AS Wetland, PretreatmentType.pretreatmentName AS Pretreatment, Wetland.siteSourceType FROM Wetland LEFT JOIN PretreatmentType ON pretreatmentType = PretreatmentType.id) AS Data ON Data.siteSourceType=SiteSourceType.id';
 
 
 // set the ouput format to json
@@ -23,7 +23,6 @@ $grid->setUrl('includes/partials/wetlandsgrid.php');
 // Set grid caption using the option caption
 $grid->setGridOptions(array(
     "caption"=>"Wetlands",
-	"hoverrows"=>true,
     "rowNum"=>10,
     "sortname"=>"wetlandID",
     "rowList"=>array(10,20,50)
