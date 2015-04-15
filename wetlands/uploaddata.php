@@ -72,7 +72,7 @@ if ($user->isLoggedIn()) {
                                     <input type="submit" name="upload" value="Upload File">
                                 </p>
                                 <br>
-                                <a href = "profile.php" class = "navbar-btn btn-danger btn">Profile page</a>
+                                <a href = "profile.php">Profile page</a>
                             </form>
                         </div>
                     </div>

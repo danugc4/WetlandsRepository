@@ -2,7 +2,7 @@
 
     <div class = "navbar navbar-inverse navbar-static-top">
         <div class = "container">
-            <h1>Constructed Wetlands</h1>
+            <h1>Wetlands Database</h1>
             <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
                 <span class = "icon-bar"></span>
                 <span class = "icon-bar"></span>

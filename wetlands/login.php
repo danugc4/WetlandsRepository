@@ -39,7 +39,7 @@ if(Input::exists()) {
                 <div class="login-panel panel panel-success">
                     <div class="panel-heading">
                         <h3 class="panel-title">Please Sign In</h3>
-						<a href="forgot.html" class="pull-right ">Forgot password?</a>
+						<a href="forgotpassword.php" class="pull-right ">Forgot password?</a>
 						<br>
                     </div>
                     <div class="panel-body">

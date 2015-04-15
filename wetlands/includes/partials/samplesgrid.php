@@ -53,6 +53,7 @@ FFF;
 
 // Set grid caption using the option caption
 $grid->setGridOptions(array(
+                "width"=>800,
 		"caption"=>"Wetland Sample Data",
 		"rowNum"=>15,
 		"sortname"=>"wetlandID",
@@ -106,6 +107,11 @@ $grid->setNavOptions('search', array(
 		"showQuery"=>true
 ));
 
+$grid->navigator = true;
+$grid->setGridOptions(array(
+"shrinkToFit"=>false)
+);
+$grid->setNavOptions('navigator', array("excel"=>true,"add"=>false,"edit"=>false,"del"=>false,"view"=>false, "search"=>false));
 // Run the script
 $grid->renderGrid('#grid','#pager',true, null, null, true,true);
 $conn = null;

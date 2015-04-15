@@ -1,0 +1,90 @@
+h1
+{
+	color: white;
+}
+
+.tableArticle table{width:100%;border-collapse:collapse;margin:1em 0;}
+.tableArticle th, td{text-align:left;padding:.5em;border:1px }
+.tableArticle th{background:#2eb866 url(trbacky.gif) repeat-x;color:#fff;}
+#page-wrap { width: 600px; margin: 0 auto; }
+.tableArticle td, th { border: 1px solid #ccc; padding: 10px; }
+
+.hover { background-color: #fff; }
+.oddRow
+{
+	background-color:#ffffff;
+}
+.evenRow
+{
+	background-color:#e8e8e8;
+}
+#resources
+{
+	width:100%;
+}
+#resources-left
+{
+	width:300px;
+float: left;
+	
+}
+#resources-right
+{
+	width:100%;
+	float:left;
+	word-wrap: break-word;
+}
+#siteResources
+{
+	height: 50px;
+	width:700px;
+	margin: 0;
+   	padding: 0;
+   	overflow: auto;
+	word-wrap: break-word;
+}
+.nonhighlight td
+{
+	background-color: #fff;
+}
+table.tableArticle1 td
+{
+    max-width: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+
+table.scroll tbody,
+table.scroll thead { display: block; }
+table.scroll tbody {
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+	background-color: white;}
+   table.tableArticle {
+        display: table;
+        width: 100%;
+    }
+    table.tableArticle thead, table.tableArticle tbody {
+	float:left;
+        width: 100%;
+    }
+    
+    table.tableArticle tr {
+        width: 100%;
+        display: table;
+        text-align: left;
+    }
+observationTable table, .observationTable th, .observationTable td
+{
+	table-layout: fixed;
+	word-wrap: break-word;
+	max-width: 800px;
+	padding: 5px;
+	border-spacing: 7px;
+	border-collapse: separate;
+}
+

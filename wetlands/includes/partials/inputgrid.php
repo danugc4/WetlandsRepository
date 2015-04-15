@@ -13,8 +13,11 @@ $conn->query("SET NAMES utf8");
 $grid = new jqGridRender($conn);
 
 // Write the SQL Query
-$grid->SelectCommand = 'SELECT `wetlandID`, `sampleDate`, `dailyFlowRate`, `COD_inlet`, `BOD_inlet`, `suspSolids_inlet`, `pH_inlet`, `dissolvedOxy_inlet`, `temp_inlet`, `nitrogen_inlet`, `NH4N_inlet`, `NO3N_inlet`, `TON_inlet`, `phosphorous_inlet`, `PO4P_inlet`, `COD_outlet`, `BOD_outlet`, `suspSolids_outlet`, `pH_outlet`, `dissolvedOxy_outlet`, `temp_outlet`, `nitrogen_outlet`, `NH4N_outlet`, `NO3N_outlet`, `TON_outlet`, `phosphorous_outlet`, `PO4P_outlet` FROM `SampleView`';
-$grid->table = 'SampleView';
+$grid->SelectCommand = 'SELECT `SampleData`.*, Wetland.name
+FROM SampleData, Wetland, WetlandSample 
+WHERE (`WetlandSample`.`id` =`SampleData`.`sampleID`)
+AND (WetlandSample.id = Wetland.id)';
+$grid->table = 'SampleData';
 // set the ouput format to json
 $grid->dataType = 'json';
 // Let the grid create the model
@@ -25,22 +28,24 @@ $grid->setUrl('includes/partials/inputgrid.php');
 
 // Set grid caption using the option caption
 $grid->setGridOptions(array(
+                "width"=>800,
 		"caption"=>"Add Record",
 		"rowNum"=>15,
-		"sortname"=>"wetlandID",
+		//"sortname"=>"wetlandID",
 		"rowList"=>array(10,20,50),
 		
 ));
+
 
 // Change some property of the field(s)
 //$grid->setColProperty("wetlandID", array("label"=>"WetlandID", "width"=>60));
 // Change some property of the field(s)
 /*$grid->setSelect('wetlandID', "SELECT Wetland.name
 FROM Wetland
-INNER JOIN Sample
-ON Wetland.id = Sample.wetlandID");*/
+INNER JOIN WetlandSample
+ON Wetland.id = WetlandSample.wetlandID");*/
 
-$grid->setColProperty("wetlandID", array("label"=>"WetlandID", "width"=>60, "editable"=>true));
+$grid->setColProperty("name", array("label"=>"Wetland Name", "width"=>120, "editable"=>true));
 $grid->setColProperty("sampleDate", array(
 	"label"=>"Sample Date",  "width"=>120,
 	"formatter"=>"date",
@@ -76,7 +81,9 @@ $grid->setColProperty("PO4P_outlet", array("label"=>"PO4P_outlet", "width"=>70, 
 
 
 
+
 $grid->navigator = true;
+$grid->setGridOptions(array("shrinkToFit"=>false));
 // Enable only editing
 $grid->setNavOptions('navigator', array("excel"=>true,"add"=>true,"edit"=>true,"del"=>false,"view"=>false, "search"=>false));
 // Close the dialog after editing

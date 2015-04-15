@@ -48,7 +48,7 @@ $grid->setColProperty("description", array("label" => "Description", "width" => 
 
 $grid->navigator = true;
 // Enable only editing
-$grid->setNavOptions('navigator', array("excel"=>true,"add"=>false,"edit"=>true,"del"=>false,"view"=>false, "search"=>false));
+$grid->setNavOptions('navigator', array("excel"=>false,"add"=>false,"edit"=>true,"del"=>true,"view"=>false, "search"=>false));
 // Close the dialog after editing
 $grid->setNavOptions('edit',array("closeAfterEdit"=>true,"editCaption"=>"Update User","bSubmit"=>"Update", "viewPagerButtons"=>false));
 
