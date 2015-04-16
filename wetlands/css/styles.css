@@ -2,3 +2,11 @@ h1
 {
 	color: white;
 }
+table.tableWetland {border-collapse:collapse; table-layout: fixed; }
+.tableWetland td  {
+    padding: 0.6em;
+    font-size:0.9em;
+}
+.tableWetland:hover{ background-color: #ffffff; }
+.wetlandr1c1 {text-align:left; padding-left:1; }
+.wetlandr1c2 {width:60%}

@@ -3,7 +3,7 @@ require 'core/init.php';
 include 'includes/overall/header.php';
 ?>
 <script src="js/galleria/galleria-1.4.2.min.js"></script> 
-<link rel="stylesheet" href="css/galleria/themes/classic/galleria.classic.css"/> 
+<link rel="stylesheet" href="css/galleria/themes/classic/galleria.classic.css"/>
 <script src="css/galleria/themes/classic/galleria.classic.min.js"></script> 
 <script type="text/javascript">
     $.jgrid.no_legacy_api = true;
@@ -66,17 +66,28 @@ $wetlandID = (isset($_GET["wetlandID"])) ? $_GET["wetlandID"] : '';
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-sm-offset-2">
-            <h4 id="wetland" data-id="<?php echo $wetlandID ?>"><strong>Wetland:</strong><?php echo ((isset($_GET["wetland"])) ? $_GET['wetland'] : '') ?></h4>
-            <h4><strong>County:</strong> <?php echo ((isset($_GET["county"])) ? $_GET['county'] : '') ?></h4>
-            <h4><strong>SiteSource:</strong> <?php echo ((isset($_GET["siteSource"])) ? $_GET['siteSource'] : '') ?></h4>
-            <h4><strong>Pretreatment:</strong> <?php echo ((isset($_GET["pretreatment"])) ? $_GET['pretreatment'] : '') ?></h4>
+        <div class="col-sm-offset-1">
+			<table>
+				<tr class="tableWetland">				
+						<td class='wetlandr1c1' rowspan='3'><h4 id="wetland" data-id="<?php echo $wetlandID ?>"><strong>Wetland:</strong></h4></td>				
+						<td class='wetlandr1c2' rowspan="3"><h4><?php echo ((isset($_GET["wetland"])) ? $_GET['wetland'] : '') ?></h4></td> 
+					<td><strong>County:</strong></td>
+					<td> <?php echo ((isset($_GET["county"])) ? $_GET['county'] : '') ?></td>
+				</tr>
+
+				<tr class="tableWetland">
+					<td><strong>Pretreatment:</strong></td><td> <?php echo ((isset($_GET["pretreatment"])) ? $_GET['pretreatment'] : '') ?></td>
+				</tr>
+				<tr class="tableWetland">
+					<td><strong>Source of Waste Water:</strong></td><td><?php echo ((isset($_GET["siteSource"])) ? $_GET['siteSource'] : '') ?></td>
+				</tr>
+			</table>
         </div>
     </div>
 </div> 
 <div class="container">
     <div class="row">
-        <div class="col-sm-offset-2">
+        <div class="col-sm-offset-1">
 
             <ul class="nav nav-tabs" id="data_tabs">
                 <li><a data-toggle="tab" href="#samples_section">Sample Data</a></li>

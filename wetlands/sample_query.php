@@ -2,6 +2,7 @@
 require 'core/init.php';
 include 'includes/overall/header.php';
 ?>
+
 <script type="text/javascript">
     var select = '';
     $(document).ready(function() {
@@ -56,7 +57,7 @@ $pretreatments = $db->getAll('PretreatmentType', false)->results();
 <p></p>
 
 <div class="row">
-    <div class="col-md-offset-2">
+    <div class="col-sm-offset-2">
         <div class = "container" id="filter" >
             <div class = "row">			
                 <select name="county"  id="county-select">
@@ -98,18 +99,17 @@ $pretreatments = $db->getAll('PretreatmentType', false)->results();
         </div>
     </div>	
     <div class = "container">
-        <div class="col-md-offset-1">
-            <button id="getselected">Get Selected Rows</button>
+        <div class="col-sm-offset-1">
+            <button id="getselected">Get Sample Data for Selected Wetland</button>
         </div>
     </div><br>
     <div class = "container">
-        <div class="col-md-offset-1">
+        <div class="col-sm-offset-1">
             <?php include "includes/partials/wetlandsgrid.php"; ?>	
         </div>
     </div>
 </div>	        	    
-</div>
-</div>
+
 
 <?php include 'includes/footer_grid.php'; ?> 
 
